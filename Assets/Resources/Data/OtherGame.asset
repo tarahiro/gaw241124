@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6656d30027311f478733fd3683bc1a9, type: 3}
+  m_Name: OtherGame
+  m_EditorClassIdentifier: 
+  m_List:
+  - m_Index: 0
+    m_Id: ccc
+    m_CodeName: ccc
+    m_TitleNameJp: "\u6771\u4EAC\u73C8\u7432\u30D1\u30F3\u30C7\u30C1\u30AB"
+    m_TitleNameEn: 'Tokyo Coffee: Grinding in the Pandemic'
+    m_GenreNameJp: "\u611F\u67D3\u798D\u30CE\u30B9\u30BF\u30EB\u30B8\u30C3\u30AF\u30AB\u30D5\u30A7\u30B2\u30FC\u30E0"
+    m_GenreNameEn: "pandemic-nostalgic caf\xE9 game"
+    m_DescriptionJp: "\u904E\u53BB\u3068\u306A\u308A\u3064\u3064\u3042\u308B\u30B3\u30ED\u30CA\u798D\u3092\u3001\u3053\u306E\u30B2\u30FC\u30E0\u3067\u61D0\u304B\u3057\u304F\u601D\u3044\u51FA\u3057\u307E\u305B\u3093\u304B\uFF1F\n\u6025\u6FC0\u306B\u79FB\u308A\u5909\u308F\u308B\u793E\u4F1A\u3078\u306E\u9AD8\u63DA\u611F\u3002\u53F3\u5F80\u5DE6\u5F80\u3059\u308B\u56FD\u5BB6\u3078\u306E\u51B7\u7B11\u611F\u3002\u547D\u306E\u5371\u967A\u3092\u508D\u306B\u611F\u3058\u308B\u5207\u8FEB\u611F\u3002\n\u73C8\u7432\u306E\u9999\u308A\u3068\u3068\u3082\u306B\u3001\u30B3\u30ED\u30CA\u798D\u3092\u30CE\u30B9\u30BF\u30EB\u30B8\u30FC\u3068\u3057\u3066\u4F53\u9A13\u3057\u307E\u3057\u3087\u3046\u3002"
+    m_DescriptionEn: "Looking back, what happened in the COVID-19 pandemic might
+      be a nostalgic memory now\u2026\nThe suspense of not knowing how society will
+      change day by day. The cynicism toward an indecisive country. \nThe sense of
+      urgency for action and the fear of catching the virus. Reminisce the pandemic
+      with the fragrance of coffee by your side."
+    m_IconPathJp: Sprite/OtherGame/ccc_icon
+    m_IconPathEn: Sprite/OtherGame/ccc_icon
+    m_ScreenShotCenterPathJp: Sprite/OtherGame/ccc_c
+    m_ScreenShotCenterPathEn: Sprite/OtherGame/ccc_c
+    m_ScreenShotRightTopPathJp: Sprite/OtherGame/ccc_rt
+    m_ScreenShotRightTopPathEn: Sprite/OtherGame/ccc_rt
+    m_ScreenShotRightBottomPathJp: Sprite/OtherGame/ccc_rb
+    m_ScreenShotRightBottomPathEn: Sprite/OtherGame/ccc_rb
+    m_StoreUrlJp: https://store.steampowered.com/app/2885880/_/
+    m_StoreUrlEn: https://store.steampowered.com/app/2885880/_/
+  - m_Index: 1
+    m_Id: csq
+    m_CodeName: csq
+    m_TitleNameJp: "\u25CFLIVE IN DUNGEON"
+    m_TitleNameEn: LIVE IN DUNGEON
+    m_GenreNameJp: "\u7570\u4E16\u754C\u914D\u4FE1\u8005\u306A\u308A\u304D\u308ARPG"
+    m_GenreNameEn: an RPG your live-streaming skills affect the adventure
+    m_DescriptionJp: "\u3053\u3053\u306F\u914D\u4FE1\u6280\u8853\u3060\u3051\u304C\u767A\u9054\u3057\u305F\u7570\u4E16\u754C\u3001\u30EF\u30F3\u30C0\u30EB\u30B7\u30A2\u3002\n\u99C6\u3051\u51FA\u3057\u306E\u7570\u4E16\u754C\u914D\u4FE1\u8005\u306B\u306A\u308A\u304D\u3063\u3066\u3001\u500B\u6027\u8C4A\u304B\u306A\u30EA\u30B9\u30CA\u30FC\u3084\n\u76F8\u68D2\u306E\u30CD\u30B3\u3068\u3068\u3082\u306B\u30C0\u30F3\u30B8\u30E7\u30F3\u63A2\u7D22\u3092\u697D\u3057\u307F\u307E\u3057\u3087\u3046\uFF01"
+    m_DescriptionEn: 'Wonderlucia, an alternate world where streaming is the sole
+      form of advanced technology.
+
+      Become a novice live streaming adventurer
+      and explore dungeons with your cat buddy and quirky viewers!'
+    m_IconPathJp: Sprite/OtherGame/csq_icon
+    m_IconPathEn: Sprite/OtherGame/csq_icon
+    m_ScreenShotCenterPathJp: Sprite/OtherGame/csq_c
+    m_ScreenShotCenterPathEn: Sprite/OtherGame/csq_c
+    m_ScreenShotRightTopPathJp: Sprite/OtherGame/csq_rt
+    m_ScreenShotRightTopPathEn: Sprite/OtherGame/csq_rt
+    m_ScreenShotRightBottomPathJp: Sprite/OtherGame/csq_rb
+    m_ScreenShotRightBottomPathEn: Sprite/OtherGame/csq_rb
+    m_StoreUrlJp: https://store.steampowered.com/app/1610650/LIVE_IN_DUNGEON/
+    m_StoreUrlEn: https://store.steampowered.com/app/1610650/LIVE_IN_DUNGEON/
+  - m_Index: 2
+    m_Id: u1w
+    m_CodeName: u1w
+    m_TitleNameJp: "\u308F\u3060\u3064\u307F\u306E\u3053\u3060\u307E"
+    m_TitleNameEn: Resonance of the Ocean
+    m_GenreNameJp: "\u97F3\u3092\u305D\u308D\u3048\u308BRPG"
+    m_GenreNameEn: Sound Aligned RPG
+    m_DescriptionJp: "\u5EC3\u589F\u3068\u306A\u3063\u305F\u5CF6\u306E\u306F\u305A\u308C\u3067\u3001\u6D77\u8FBA\u306B\u6F02\u7740\u3057\u305F\n\u30D3\u30F3\u3084\u6728\u306E\u679D\u3092\u4F7F\u3063\u3066\u300C\u697D\u5668\u300D\u3092\u4F5C\u308A\u51FA\u3057\u3001\n\u6D77\u304B\u3089\u8074\u3053\u3048\u308B\u97F3\u306B\u300C\u3053\u3060\u307E\u300D\u3092\u8FD4\u3057\u3066\u307F\u3088\u3046\u3002"
+    m_DescriptionEn: "At the edge of a desolate island, pick up what the waves wash
+      ashore to make instruments.\n Use those instruments to answer the echoes heard
+      from beyond the ocean."
+    m_IconPathJp: Sprite/OtherGame/u1w_icon
+    m_IconPathEn: Sprite/OtherGame/u1w_icon
+    m_ScreenShotCenterPathJp: Sprite/OtherGame/u1w_c
+    m_ScreenShotCenterPathEn: Sprite/OtherGame/u1w_c
+    m_ScreenShotRightTopPathJp: Sprite/OtherGame/u1w_rt
+    m_ScreenShotRightTopPathEn: Sprite/OtherGame/u1w_rt
+    m_ScreenShotRightBottomPathJp: Sprite/OtherGame/u1w_rb
+    m_ScreenShotRightBottomPathEn: Sprite/OtherGame/u1w_rb
+    m_StoreUrlJp: https://store.steampowered.com/app/2057080/_/
+    m_StoreUrlEn: https://store.steampowered.com/app/2057080/_/
+  - m_Index: 3
+    m_Id: gaw241110
+    m_CodeName: gaw241110
+    m_TitleNameJp: "\u306D\u3053\u30AF\u30C3\u30AD\u30FC\u30B5\u30D0\u30A4\u30D0\u30FC"
+    m_TitleNameEn: 
+    m_GenreNameJp: "\u30ED\u30FC\u30B0\u30E9\u30A4\u30AF \xD7 \u30AF\u30EA\u30C3\u30AB\u30FC
+      \xD7 \u306D\u3053"
+    m_GenreNameEn: 
+    m_DescriptionJp: "\u30AF\u30C3\u30AD\u30FC\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u3001\u8FEB\u308A\u304F\u308B\u6D77\u304B\u3089\u306D\u3053\u3092\u6551\u3048\uFF01\n\u30EC\u30D9\u30EB\u30A2\u30C3\u30D7\u306E\u6642\u306B\u3069\u306E\u30B9\u30AD\u30EB\u3092\u9078\u3076\u304B\u304C\u3001\u30B2\u30FC\u30E0\u306E\u30AB\u30AE\uFF01\n\u304A\u30E2\u30C1\u3082\u713C\u3051\u308B\u305E\uFF01"
+    m_DescriptionEn: 
+    m_IconPathJp: Sprite/OtherGame/gaw241110_icon
+    m_IconPathEn: Sprite/OtherGame/gaw241110_icon
+    m_ScreenShotCenterPathJp: Sprite/OtherGame/gaw241110_c
+    m_ScreenShotCenterPathEn: Sprite/OtherGame/gaw241110_c
+    m_ScreenShotRightTopPathJp: Sprite/OtherGame/gaw241110_rt
+    m_ScreenShotRightTopPathEn: Sprite/OtherGame/gaw241110_rt
+    m_ScreenShotRightBottomPathJp: Sprite/OtherGame/gaw241110_rb
+    m_ScreenShotRightBottomPathEn: Sprite/OtherGame/gaw241110_rb
+    m_StoreUrlJp: https://unityroom.com/games/catcookiesurviver
+    m_StoreUrlEn: https://unityroom.com/games/catcookiesurviver
+  - m_Index: 4
+    m_Id: gaw241117
+    m_CodeName: gaw241117
+    m_TitleNameJp: "\u30B3\u30A4\u30F3\u30C8\u30B9\u30B7\u30DF\u30E5\u30EC\u30FC\u30BF\u30FC"
+    m_TitleNameEn: 
+    m_GenreNameJp: "\u672C\u683C\u7269\u7406\u30B3\u30A4\u30F3\u30C8\u30B9\u30B7\u30DF\u30E5\u30EC\u30FC\u30BF\u30FC"
+    m_GenreNameEn: 
+    m_DescriptionJp: "\u5B8C\u5168\u306B\u7269\u7406\u3067\u52D5\u304F\u3001\u5B8C\u5168\u306A\u5B9F\u529B\u30B2\u30FC\u306A\u30B3\u30A4\u30F3\u30C8\u30B9\u30B2\u30FC\u30E0\u3067\u3059\uFF01\n\u6295\u3052\u65B9\u3092\u5DE5\u592B\u3057\u3066\u30015\u9023\u7D9A\u3067\u8868\u3092\u3060\u305D\u3046\uFF01"
+    m_DescriptionEn: 
+    m_IconPathJp: Sprite/OtherGame/gaw241117_icon
+    m_IconPathEn: Sprite/OtherGame/gaw241117_icon
+    m_ScreenShotCenterPathJp: Sprite/OtherGame/gaw241117_c
+    m_ScreenShotCenterPathEn: Sprite/OtherGame/gaw241117_c
+    m_ScreenShotRightTopPathJp: Sprite/OtherGame/gaw241117_rt
+    m_ScreenShotRightTopPathEn: Sprite/OtherGame/gaw241117_rt
+    m_ScreenShotRightBottomPathJp: Sprite/OtherGame/gaw241117_rb
+    m_ScreenShotRightBottomPathEn: Sprite/OtherGame/gaw241117_rb
+    m_StoreUrlJp: https://store.steampowered.com/app/2057080/_/
+    m_StoreUrlEn: https://store.steampowered.com/app/2057080/_/

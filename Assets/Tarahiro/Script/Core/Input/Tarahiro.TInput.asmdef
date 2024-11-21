@@ -1,0 +1,17 @@
+{
+    "name": "Tarahiro.TInput",
+    "rootNamespace": "Tarahiro.TInput",
+    "references": [
+        "GUID:0be27b54e10228743974a8df3dda3639",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
