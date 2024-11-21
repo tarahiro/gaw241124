@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Tarahiro.MasterData;
-using FakeProject;
+using gaw241124;
+using gaw241124.Model;
 
-namespace FakeProject.MasterData
+namespace gaw241124.Model.MasterData
 {
     //---プロジェクト作成時にやること---//
     //namespaceの"project"部分を変更。（gaw[yymmdd].Modelとか）
