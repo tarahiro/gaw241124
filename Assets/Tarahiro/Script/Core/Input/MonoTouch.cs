@@ -14,10 +14,12 @@ namespace Tarahiro.TInput
         const int c_storedFrameCount = 100;
         List<Vector2> _prevPositionList = new List<Vector2>();
         List<float> _prevTimeList = new List<float>();
+        Transform _clickedGameObject;
 
         public TouchConst.TouchState State { get; private set; } = TouchConst.TouchState.None;
         public Vector2 BeginScreenPoint { get; private set; }
         public Vector2 ScreenPointOnThisFrame => _prevPositionList[_prevPositionList.Count - 1];
+        public Transform ClickedGameObject => _clickedGameObject;
         public float TimeOnThisFrame => _prevTimeList[_prevTimeList.Count - 1];
 
         public float TimeFromBegin()
@@ -177,6 +179,7 @@ namespace Tarahiro.TInput
         {
             State = TouchConst.TouchState.None;
             BeginScreenPoint = Vector2.zero;
+            _clickedGameObject = null;
         }
 
         void BeginTouch()
@@ -184,17 +187,27 @@ namespace Tarahiro.TInput
             State = TouchConst.TouchState.Begin;
             _beginTime = Time.time;
             BeginScreenPoint = ScreenPointOnThisFrame;
+
+            Ray ray = Camera.main.ScreenPointToRay(ScreenPointOnThisFrame);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                _clickedGameObject = hit.transform;
+            }
         }
 
         void Touching()
         {
             State = TouchConst.TouchState.Touching;
+            _clickedGameObject = null;
 
         }
 
         void EndTouch()
         {
             State = TouchConst.TouchState.End;
+            _clickedGameObject = null;
         }
     }
 }
