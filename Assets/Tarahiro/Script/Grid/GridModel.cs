@@ -24,7 +24,6 @@ namespace Tarahiro.TGrid
         public void Initialize()
         {
             m_TilemapList = _gridReader.GetTilemaps();
-            Debug.Log(m_TilemapList[0].GetTile(Vector3Int.zero).name);
 
             UnPositionableTileList = new List<List<Sprite>>();
 
@@ -34,16 +33,6 @@ namespace Tarahiro.TGrid
                 UnPositionableTileList.Add(_spriteInformationContainer.GetPositionableList(i));
             }
 
-            /*
-            for (int i = 0; i < m_TilemapList.Count; i++)
-            {
-                if (m_TilemapList[i].name == "TilemapGround")
-                {
-                    m_GroundLayer = i;
-                    break;
-                }
-            }
-            */
         }
 
         public bool IsPositionable(Vector2Int position, int positionableIndex)

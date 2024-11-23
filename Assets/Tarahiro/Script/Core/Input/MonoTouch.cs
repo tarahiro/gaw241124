@@ -5,6 +5,7 @@ using Tarahiro;
 using UnityEngine;
 using VContainer.Unity;
 using static Tarahiro.TInput.InputPlatformUtility;
+using static UnityEngine.UI.Image;
 
 namespace Tarahiro.TInput
 {
@@ -15,11 +16,13 @@ namespace Tarahiro.TInput
         List<Vector2> _prevPositionList = new List<Vector2>();
         List<float> _prevTimeList = new List<float>();
         Transform _clickedGameObject;
+        RaycastHit2D _hit2D;
 
         public TouchConst.TouchState State { get; private set; } = TouchConst.TouchState.None;
         public Vector2 BeginScreenPoint { get; private set; }
         public Vector2 ScreenPointOnThisFrame => _prevPositionList[_prevPositionList.Count - 1];
         public Transform ClickedGameObject => _clickedGameObject;
+        public RaycastHit2D Hit2D => _hit2D;
         public float TimeOnThisFrame => _prevTimeList[_prevTimeList.Count - 1];
 
         public float TimeFromBegin()
@@ -36,6 +39,9 @@ namespace Tarahiro.TInput
         {
             _prevPositionList.Add(TouchPosition());
             _prevTimeList.Add(Time.time);
+
+            Ray ray = Camera.main.ScreenPointToRay(ScreenPointOnThisFrame);
+            _hit2D = Physics2D.Raycast(ray.origin, ray.direction);
 
             if (_prevPositionList.Count > c_storedFrameCount)
             {
@@ -188,12 +194,9 @@ namespace Tarahiro.TInput
             _beginTime = Time.time;
             BeginScreenPoint = ScreenPointOnThisFrame;
 
-            Log.DebugLog("rayCast");
-            Log.DebugLog(ScreenPointOnThisFrame);
             Ray ray = Camera.main.ScreenPointToRay(ScreenPointOnThisFrame);
-            RaycastHit hit;
-            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red,1f);
-            if (Physics.Raycast(ray, out hit,100f))
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if (hit.collider)
             {
                 _clickedGameObject = hit.transform;
                 Log.DebugLog(_clickedGameObject.name);
