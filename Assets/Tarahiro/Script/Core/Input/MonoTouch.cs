@@ -188,12 +188,15 @@ namespace Tarahiro.TInput
             _beginTime = Time.time;
             BeginScreenPoint = ScreenPointOnThisFrame;
 
+            Log.DebugLog("rayCast");
+            Log.DebugLog(ScreenPointOnThisFrame);
             Ray ray = Camera.main.ScreenPointToRay(ScreenPointOnThisFrame);
             RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red,1f);
+            if (Physics.Raycast(ray, out hit,100f))
             {
                 _clickedGameObject = hit.transform;
+                Log.DebugLog(_clickedGameObject.name);
             }
         }
 
