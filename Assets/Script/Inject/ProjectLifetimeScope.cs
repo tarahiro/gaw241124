@@ -1,9 +1,11 @@
+using gaw241124;
 using gaw241124.Model;
 using gaw241124.View;
 using gaw241124.Presenter;
 using Tarahiro.TGrid;
 using VContainer;
 using VContainer.Unity;
+using UnityEngine;
 
 namespace gaw241124.Inject
 {
@@ -14,12 +16,16 @@ namespace gaw241124.Inject
             //Stone
             builder.RegisterComponentInHierarchy<StoneView>().AsImplementedInterfaces();
             builder.RegisterComponentInHierarchy<StoneNumberUiView>().AsImplementedInterfaces();
-            builder.Register<StoneModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<StonePutterModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerStoneInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<StonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerHoldStoneModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Treasure
             builder.RegisterComponentInHierarchy<TreasureView>().AsImplementedInterfaces();
             builder.Register<TreasureModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterFactory<ITreasureItemView, TreasureModelItemArgs>(m => new TreasureModelItemArgs(m.Index,m.GridPosition,m.Id,m.Arg));
+            builder.RegisterFactory<Const.Side, Vector2Int, StonePositionArgs>((s,v) => new StonePositionArgs(s,v));
 
 
             //Hide

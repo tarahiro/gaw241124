@@ -24,5 +24,11 @@ namespace gaw241124
             Groundable,
             Stone
         }
+
+        public enum Side
+        {
+            Player,
+            Enemy
+        }
     }
 }

@@ -22,8 +22,11 @@ namespace gaw241124.Model
 
         public void TryAchieveTreasure(Vector2Int position)
         {
+            Log.DebugLog(position);
+
             if(_dictionary.TryGetValue (position, out var data))
             {
+                Log.DebugLog("Success");
 
                 switch (data.Id)
                 {

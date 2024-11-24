@@ -15,7 +15,10 @@ namespace gaw241124.Presenter
 {
     public class StonePresenter:IInitializable
     {
-        [Inject] IStoneModel _model;
+        [Inject] IStonePutTryer _stonePutTryer;
+        [Inject] IStonePutterModel _model;
+        [Inject] IPlayerStoneInitializer _playerStoneInitializer;
+        [Inject] IPlayerHoldStoneModel _holdStoneModel;
         [Inject] IStoneView _view;
         [Inject] IStoneNumberUiView _numberUiView;
 
@@ -24,10 +27,10 @@ namespace gaw241124.Presenter
         public void Initialize()
         {
             _model.StonePutted.Subscribe(OnCreateStone).AddTo(_compositeDisposable);
-            _model.StoneUpdated.Subscribe(_numberUiView.UpdateStoneNumber).AddTo(_compositeDisposable);
-            _view.FieldTouched.Subscribe(_model.TryPutStone).AddTo(_compositeDisposable);
+            _holdStoneModel.StoneUpdated.Subscribe(_numberUiView.UpdateStoneNumber).AddTo(_compositeDisposable);
+            _view.FieldTouched.Subscribe(_stonePutTryer.TryPutStone).AddTo(_compositeDisposable);
 
-            _model.InitializeModel();
+            _playerStoneInitializer.InitializeModel();
         }
 
         void OnCreateStone(Vector2Int position)

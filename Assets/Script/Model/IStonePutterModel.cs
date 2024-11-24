@@ -11,12 +11,11 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IStoneModel
+    public interface IStonePutterModel
     {
-        void InitializeModel();
-        void TryPutStone(Vector2Int position);
-        void AddStone(int addedStoneNumber);
+        void PutStone(Vector2Int position);
+
+
         IObservable<Vector2Int> StonePutted { get; }
-        IObservable<int> StoneUpdated { get; }
     }
 }

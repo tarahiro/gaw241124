@@ -17,7 +17,7 @@ namespace gaw241124.Presenter
     {
         [Inject] ITreasureView _view;
         [Inject] ITreasureModel _model;
-        [Inject] IStoneModel _stoneModel;
+        [Inject] IPlayerHoldStoneModel _holdStoneModel;
         [Inject] Func<ITreasureItemView, TreasureModelItemArgs> _factory;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
@@ -26,7 +26,7 @@ namespace gaw241124.Presenter
         {
             _view.ItemRegistered.Subscribe(OnRegisterItem).AddTo(_compositeDisposable);
             _model.TreasureAchieved.Subscribe(_view.DestroyTreasure).AddTo(_compositeDisposable);
-            _model.AddStoneTreasureAchieved.Subscribe(_stoneModel.AddStone).AddTo(_compositeDisposable);
+            _model.AddStoneTreasureAchieved.Subscribe(_holdStoneModel.AddStone).AddTo(_compositeDisposable);
 
             _view.InitializeView();
         }
