@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace Tarahiro.TGrid
 {
-    public interface IGridReader
+    internal interface IGridReader
     {
         List<Tilemap> GetTilemaps();
     }

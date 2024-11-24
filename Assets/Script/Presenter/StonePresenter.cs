@@ -17,13 +17,17 @@ namespace gaw241124.Presenter
     {
         [Inject] IStoneModel _model;
         [Inject] IStoneView _view;
+        [Inject] IStoneNumberUiView _numberUiView;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
         public void Initialize()
         {
-            _model.StoneCreated.Subscribe(OnCreateStone).AddTo(_compositeDisposable);
-            _view.FieldTouched.Subscribe(_model.CreateStone).AddTo(_compositeDisposable);
+            _model.StonePutted.Subscribe(OnCreateStone).AddTo(_compositeDisposable);
+            _model.StoneUpdated.Subscribe(_numberUiView.UpdateStoneNumber).AddTo(_compositeDisposable);
+            _view.FieldTouched.Subscribe(_model.PutStone).AddTo(_compositeDisposable);
+
+            _model.InitializeModel();
         }
 
         void OnCreateStone(Vector2Int position)

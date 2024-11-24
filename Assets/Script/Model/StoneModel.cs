@@ -13,15 +13,31 @@ namespace gaw241124.Model
 {
     public class StoneModel : IStoneModel
     {
-        Subject<Vector2Int> _stoneCreated = new Subject<Vector2Int>();
+        Subject<Vector2Int> _stonePutted = new Subject<Vector2Int>();
+        Subject<int> _stoneUpdated = new Subject<int>();
+        int _stoneNumber = 0;
 
-        public IObservable<Vector2Int> StoneCreated => _stoneCreated;
-
-        public void CreateStone(Vector2Int position)
+        public void InitializeModel()
         {
-            Log.DebugLog(position);
-            _stoneCreated.OnNext(position);
+            AddStone(5);
+        }
+        public IObservable<Vector2Int> StonePutted => _stonePutted;
+        public IObservable<int> StoneUpdated => _stoneUpdated;
+
+        public void PutStone(Vector2Int position)
+        {
+            if (_stoneNumber > 0)
+            {
+                _stonePutted.OnNext(position);
+                _stoneNumber--;
+                _stoneUpdated.OnNext(_stoneNumber);
+            }
         }
 
+        public void AddStone(int addedStoneNumber)
+        {
+            _stoneNumber += addedStoneNumber;
+            _stoneUpdated.OnNext(_stoneNumber);
+        }
     }
 }

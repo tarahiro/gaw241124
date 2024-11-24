@@ -15,7 +15,7 @@ namespace Tarahiro.TGrid
 
             builder.UseEntryPoints(Lifetime.Singleton, entryPoints =>
             {
-                entryPoints.Add<GridModel>();
+                entryPoints.Add<GridProvider>();
 
             });
         }

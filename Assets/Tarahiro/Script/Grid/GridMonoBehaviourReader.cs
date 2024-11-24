@@ -6,27 +6,34 @@ using UnityEngine.Tilemaps;
 
 namespace Tarahiro.TGrid
 {
-    public class GridMonoBehaviourReader : MonoBehaviour,IGridReader
+    internal class GridMonoBehaviourReader : MonoBehaviour,IGridReader
     {
         [SerializeField]
         Grid m_Grid;
 
-        Tilemap[] m_TilemapArray;
+        List<Tilemap> _tileMapList;
 
 
         void ReadTilemap()
         {
-            m_TilemapArray = m_Grid.GetComponentsInChildren<Tilemap>();
+            var m_TilemapArray = m_Grid.GetComponentsInChildren<Tilemap>();
+
+            m_TilemapArray.OrderBy(t => t.GetComponent<TilemapRenderer>().sortingOrder);
+            //Order順に並べ替える
+            _tileMapList = new List<Tilemap>();
+            foreach(var tilemap in m_TilemapArray)
+            {
+                _tileMapList.Add(tilemap);
+            }
         }
 
         public List<Tilemap> GetTilemaps()
         {
-
-            if(m_TilemapArray == null)
+            if (_tileMapList == null)
             {
                 ReadTilemap();
             }
-            return m_TilemapArray.ToList();
+            return _tileMapList;
         }
 
 

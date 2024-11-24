@@ -11,12 +11,12 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IStoneModel
+    public interface ITreasureModel
     {
-        void InitializeModel();
-        void PutStone(Vector2Int position);
-        void AddStone(int addedStoneNumber);
-        IObservable<Vector2Int> StonePutted { get; }
-        IObservable<int> StoneUpdated { get; }
+        void TryAchieveTreasure(Vector2Int position);
+
+        void RegisterTreasure(TreasureModelItemArgs args);
+
+        IObservable<int> TreasureAchieved { get; }
     }
 }

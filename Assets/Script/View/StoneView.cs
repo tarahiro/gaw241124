@@ -7,6 +7,7 @@ using Tarahiro;
 using Tarahiro.TInput;
 using UniRx;
 using UnityEngine;
+using Tarahiro.TGrid;
 using UnityEngine.Tilemaps;
 using VContainer;
 using VContainer.Unity;
@@ -15,7 +16,8 @@ namespace gaw241124.View
 {
     public class StoneView : MonoBehaviour, IStoneView
     {
-        [SerializeField] Tilemap _tileMap;
+        [Inject] IGridProvider _gridProvider;
+
         [SerializeField] TileBase _tileBase;
 
         Subject<Vector2Int> _fieldTouched = new Subject<Vector2Int>();
@@ -23,7 +25,7 @@ namespace gaw241124.View
 
         public void PutStone(Vector3Int _position)
         {
-            _tileMap.SetTile(_position, _tileBase);
+            _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone).SetTile(_position, _tileBase);
         }
 
         void Update()
@@ -33,9 +35,7 @@ namespace gaw241124.View
                 var hit = TTouch.GetInstance().Hit2D;
                 if (hit.collider)
                 {
-                    Vector2Int vector2Int = new Vector2Int((int)Mathf.Round(hit.point.x - .5f), (int)Mathf.Round(hit.point.y - .5f));
-                    Log.DebugLog(vector2Int);
-                    _fieldTouched.OnNext(vector2Int);
+                    _fieldTouched.OnNext(GridUtil.ConvertPosition(hit.point));
                 }
             }
         }

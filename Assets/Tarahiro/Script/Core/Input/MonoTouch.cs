@@ -199,7 +199,6 @@ namespace Tarahiro.TInput
             if (hit.collider)
             {
                 _clickedGameObject = hit.transform;
-                Log.DebugLog(_clickedGameObject.name);
             }
         }
 

@@ -9,7 +9,7 @@ using VContainer.Unity;
 
 namespace Tarahiro.TGrid
 {
-    public class GridModel : IGridModel, IInitializable
+    public class GridProvider : IGridProvider, IInitializable
     {
         [Inject] IGridReader _gridReader;
         [Inject] SpriteInformationContainer _spriteInformationContainer;
@@ -29,10 +29,13 @@ namespace Tarahiro.TGrid
 
             for (int i = 0; i < _spriteInformationContainer.Count(); i++)
             {
-
                 UnPositionableTileList.Add(_spriteInformationContainer.GetPositionableList(i));
             }
+        }
 
+        public Tilemap GetTilemap(int tileMapId)
+        {
+            return m_TilemapList[tileMapId];
         }
 
         public bool IsPositionable(Vector2Int position, int positionableIndex)
