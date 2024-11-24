@@ -25,7 +25,7 @@ namespace gaw241124.Presenter
         {
             _model.StonePutted.Subscribe(OnCreateStone).AddTo(_compositeDisposable);
             _model.StoneUpdated.Subscribe(_numberUiView.UpdateStoneNumber).AddTo(_compositeDisposable);
-            _view.FieldTouched.Subscribe(_model.PutStone).AddTo(_compositeDisposable);
+            _view.FieldTouched.Subscribe(_model.TryPutStone).AddTo(_compositeDisposable);
 
             _model.InitializeModel();
         }

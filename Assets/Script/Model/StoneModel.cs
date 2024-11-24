@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tarahiro;
+using Tarahiro.TGrid;
 using UniRx;
 using UnityEngine;
 using VContainer;
@@ -13,6 +14,10 @@ namespace gaw241124.Model
 {
     public class StoneModel : IStoneModel
     {
+        [Inject] ITreasureModel _treasureModel;
+        [Inject] IHideModel _hideModel;
+        [Inject] IGridProvider _gridProvider;
+
         Subject<Vector2Int> _stonePutted = new Subject<Vector2Int>();
         Subject<int> _stoneUpdated = new Subject<int>();
         int _stoneNumber = 0;
@@ -20,17 +25,19 @@ namespace gaw241124.Model
         public void InitializeModel()
         {
             AddStone(5);
+            ForcePutStone(Vector2Int.zero);
         }
         public IObservable<Vector2Int> StonePutted => _stonePutted;
         public IObservable<int> StoneUpdated => _stoneUpdated;
 
-        public void PutStone(Vector2Int position)
+        public void TryPutStone(Vector2Int position)
         {
-            if (_stoneNumber > 0)
-            {
-                _stonePutted.OnNext(position);
-                _stoneNumber--;
-                _stoneUpdated.OnNext(_stoneNumber);
+            if (_gridProvider.IsPositionable(position, (int)Const.Positionable.Stone)){
+
+                if (_stoneNumber > 0)
+                {
+                    PutStone(position);
+                }
             }
         }
 
@@ -38,6 +45,22 @@ namespace gaw241124.Model
         {
             _stoneNumber += addedStoneNumber;
             _stoneUpdated.OnNext(_stoneNumber);
+        }
+
+        void ForcePutStone(Vector2Int position)
+        {
+            PutStone(position);
+        }
+
+        void PutStone(Vector2Int position)
+        {
+            _stonePutted.OnNext(position);
+            _stoneNumber--;
+            _stoneUpdated.OnNext(_stoneNumber);
+
+            _treasureModel.TryAchieveTreasure(position);
+            _hideModel.ClearHide(position);
+
         }
     }
 }

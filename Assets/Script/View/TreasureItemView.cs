@@ -15,9 +15,11 @@ namespace gaw241124.View
     public class TreasureItemView : MonoBehaviour, ITreasureItemView
     {
         [SerializeField] string _id;
+        [SerializeField] int _arg;
 
         public int Index{get;set;}
         public string Id => _id;
+        public int Arg => _arg;
 
         public Vector2Int GridPosition => GridUtil.ConvertPosition(transform.position);
 

@@ -11,12 +11,12 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IStoneModel
+    public interface IHideModel
     {
+
         void InitializeModel();
-        void TryPutStone(Vector2Int position);
-        void AddStone(int addedStoneNumber);
-        IObservable<Vector2Int> StonePutted { get; }
-        IObservable<int> StoneUpdated { get; }
+        void ClearHide(Vector2Int position);
+        IObservable<Vector2Int> Hided { get; }
+        IObservable<Vector2Int> GroundShowed { get; }
     }
 }

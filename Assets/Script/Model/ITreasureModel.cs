@@ -18,5 +18,6 @@ namespace gaw241124.Model
         void RegisterTreasure(TreasureModelItemArgs args);
 
         IObservable<int> TreasureAchieved { get; }
+        IObservable<int> AddStoneTreasureAchieved { get; }
     }
 }

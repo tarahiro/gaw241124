@@ -42,6 +42,9 @@ namespace Tarahiro.TGrid
         private class SpriteList
         {
             [SerializeField]
+            string name;
+
+            [SerializeField]
             public List<Sprite> spriteList;
         }
     }

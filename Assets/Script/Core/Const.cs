@@ -15,12 +15,13 @@ namespace gaw241124
         public enum TilemapLayer
         {
             Ground,
-            Grid,
-            Stone
+            Cross,
+            Stone,
+            Hide,
         }
         public enum Positionable
         {
-            Grid,
+            Groundable,
             Stone
         }
     }

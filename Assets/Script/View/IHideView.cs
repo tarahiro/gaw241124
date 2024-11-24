@@ -11,13 +11,9 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface ITreasureItemView
+    public interface IHideView
     {
-        int Index { get; set; }
-        string Id { get; }
-        int Arg { get; }
-        Vector2Int GridPosition { get; }
-
-        void Destroy();
+        void Hide(Vector2Int position);
+        void ShowMap(Vector2Int position);
     }
 }

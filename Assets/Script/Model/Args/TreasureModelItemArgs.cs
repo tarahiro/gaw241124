@@ -17,11 +17,14 @@ namespace gaw241124.Model
         public Vector2Int Position { get; set; }
         public string Id { get; set; }
 
-        public TreasureModelItemArgs(int instanceIndex, Vector2Int position, string id)
+        public int arg { get; set; }
+
+        public TreasureModelItemArgs(int instanceIndex, Vector2Int position, string id, int arg)
         {
             InstanceIndex = instanceIndex;
             Position = position;
             Id = id;
+            this.arg = arg;
         }
     }
 }

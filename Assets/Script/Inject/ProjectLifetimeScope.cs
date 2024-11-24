@@ -19,12 +19,18 @@ namespace gaw241124.Inject
             //Treasure
             builder.RegisterComponentInHierarchy<TreasureView>().AsImplementedInterfaces();
             builder.Register<TreasureModel>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterFactory<ITreasureItemView, TreasureModelItemArgs>(m => new TreasureModelItemArgs(m.Index,m.GridPosition,m.Id));
+            builder.RegisterFactory<ITreasureItemView, TreasureModelItemArgs>(m => new TreasureModelItemArgs(m.Index,m.GridPosition,m.Id,m.Arg));
+
+
+            //Hide
+            builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<HideModel>().AsImplementedInterfaces();
 
             builder.UseEntryPoints(Lifetime.Singleton, entryPoints =>
             {
                 entryPoints.Add<StonePresenter>();
                 entryPoints.Add<TreasurePresenter>();
+                entryPoints.Add<HidePresenter>();
 
             });
         }

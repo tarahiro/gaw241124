@@ -19,21 +19,9 @@ namespace gaw241124.View
 
         [SerializeField] TileBase _tileBase;
 
-        private void Start()
+        private void Awake()
         {
-            var ground = _gridProvider.GetTilemap((int)Const.TilemapLayer.Ground);
-            var cross = _gridProvider.GetTilemap((int)Const.TilemapLayer.Grid);
-            for (int i = ground.origin.x; i < ground.size.x + ground.origin.x; i++)
-            {
-                for (int j = ground.origin.y; j < ground.size.y + ground.origin.x; j++)
-                {
-                    var v = new Vector2Int(i, j);
-                    if (_gridProvider.IsPositionable(v, (int)Const.Positionable.Grid))
-                    {
-                        cross.SetTile((Vector3Int)v,_tileBase);
-                    }
-                }
-            }
+            GridPaintUtil.PaintOnAvailableTile(_tileBase, (int)Const.TilemapLayer.Cross, _gridProvider, (int)Const.TilemapLayer.Ground, (int)Const.Positionable.Groundable);
         }
     }
 }
