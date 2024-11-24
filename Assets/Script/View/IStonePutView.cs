@@ -11,10 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface IStoneView
+    public interface IStonePutView
     {
         void PutStone(Vector3Int _position);
-
-        IObservable<Vector2Int> FieldTouched { get; }
     }
 }

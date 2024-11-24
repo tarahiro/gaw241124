@@ -14,7 +14,7 @@ namespace gaw241124.Inject
         protected override void Configure(IContainerBuilder builder)
         {
             //Stone
-            builder.RegisterComponentInHierarchy<StoneView>().AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<StonePutView>().AsImplementedInterfaces();
             builder.RegisterComponentInHierarchy<StoneNumberUiView>().AsImplementedInterfaces();
             builder.Register<StonePutterModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerStoneInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -34,6 +34,7 @@ namespace gaw241124.Inject
 
             builder.UseEntryPoints(Lifetime.Singleton, entryPoints =>
             {
+                entryPoints.Add<GridTouchView>();
                 entryPoints.Add<StonePresenter>();
                 entryPoints.Add<TreasurePresenter>();
                 entryPoints.Add<HidePresenter>();

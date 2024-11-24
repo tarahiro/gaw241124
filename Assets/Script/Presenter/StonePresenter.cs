@@ -19,7 +19,8 @@ namespace gaw241124.Presenter
         [Inject] IStonePutterModel _model;
         [Inject] IPlayerStoneInitializer _playerStoneInitializer;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IStoneView _view;
+        [Inject] IStonePutView _view;
+        [Inject] IGridTouchView _gridTouchView;
         [Inject] IStoneNumberUiView _numberUiView;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
@@ -28,7 +29,7 @@ namespace gaw241124.Presenter
         {
             _model.StonePutted.Subscribe(OnCreateStone).AddTo(_compositeDisposable);
             _holdStoneModel.StoneUpdated.Subscribe(_numberUiView.UpdateStoneNumber).AddTo(_compositeDisposable);
-            _view.FieldTouched.Subscribe(_stonePutTryer.TryPutStone).AddTo(_compositeDisposable);
+            _gridTouchView.FieldTouched.Subscribe(_stonePutTryer.TryPutStone).AddTo(_compositeDisposable);
 
             _playerStoneInitializer.InitializeModel();
         }
