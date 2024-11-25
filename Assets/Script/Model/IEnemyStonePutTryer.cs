@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using gaw241124;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,12 +8,11 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.Model
+namespace gaw241124
 {
-    public interface IEnemyBrain
+    public interface IEnemyStonePutTryer
     {
-        void Enter();
+        void TryPutStone(Vector2Int position);
 
-        IObservable<Unit> BrainEnded { get; }
     }
 }

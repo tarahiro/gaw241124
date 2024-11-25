@@ -14,7 +14,7 @@ namespace gaw241124.Model
     public class PlayerStoneInitializer:IPlayerStoneInitializer
     {
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IPlayerStonePutterModel _putterModel;
+        [Inject] IPlayerStonePutter _putterModel;
 
         readonly static Vector2Int _initialStonePosition = new Vector2Int(-3, 1);
         public void InitializeModel()

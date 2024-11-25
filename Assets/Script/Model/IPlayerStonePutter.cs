@@ -11,10 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IEnemyBrain
+    public interface IPlayerStonePutter
     {
-        void Enter();
-
-        IObservable<Unit> BrainEnded { get; }
+        void PutStone(Vector2Int position);
     }
 }

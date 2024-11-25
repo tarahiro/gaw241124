@@ -12,7 +12,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyModel : IEnemyModel
+    public class EnemyStoneContainer : IEnemyStoneContainer
     {
         [Inject] IGridProvider _gridProvider;
         [Inject] StoneProvider _stoneProvider;
@@ -82,6 +82,20 @@ namespace gaw241124.Model
             return false;
         }
 
+        public bool TryGetAtariStone(out IEnemyStoneChain enemyStoneChain)
+        {
+            enemyStoneChain = null;
+            foreach (var stone in _stoneChainList)
+            {
+                if (stone.IsAtari())
+                {
+                    enemyStoneChain = stone;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         void OnArounded(List<Vector2Int> positionList)
         {
             _arounded.OnNext(positionList);
@@ -97,6 +111,18 @@ namespace gaw241124.Model
                     }
                 }
             }
+        }
+
+        public void NoticeEnemyStone(Vector2Int position)
+        {
+            foreach (var stone in _stoneChainList)
+            {
+                if (stone.EmptyAroundList.Contains(position))
+                {
+                    stone.AddStone(position);
+                }
+            }
+
         }
     }
 }

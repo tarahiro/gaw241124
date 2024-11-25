@@ -11,11 +11,13 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IEnemyModel
+    public interface IEnemyStoneContainer
     {
         void InitializeModel(CompositeDisposable disposables);
         void TryNoticePlayerStone(Vector2Int position);
+        void NoticeEnemyStone(Vector2Int position);
         bool IsKillAnyStoneChainIfPutted(Vector2Int position);
+        bool TryGetAtariStone(out IEnemyStoneChain enemyStoneChain);
         IObservable<List<Vector2Int>> Arounded { get; }
     }
 }

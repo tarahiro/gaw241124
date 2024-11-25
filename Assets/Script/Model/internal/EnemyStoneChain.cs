@@ -44,17 +44,7 @@ namespace gaw241124.Model
             //EmptyAroundList‚ðŽæ“¾
             foreach (var _stonePosition in StonePositionList)
             {
-                for (int i = 0; i < _directionList.Count; i++)
-                {
-                    var v = _stonePosition + _directionList[i];
-                    if (_gridProvider.IsPositionable(v, (int)Const.Positionable.EnemyStone))
-                    {
-                        if (!EmptyAroundList.Contains(v))
-                        {
-                            EmptyAroundList.Add(v);
-                        }
-                    }
-                }
+                RegisterEmptyAroundPosition(_stonePosition);
             }
 
         }
@@ -73,13 +63,32 @@ namespace gaw241124.Model
                     }
                 }
             }
+        }
 
+        void RegisterEmptyAroundPosition(Vector2Int stonePosition)
+        {
+            for (int i = 0; i < _directionList.Count; i++)
+            {
+                var v = stonePosition + _directionList[i];
+                if (_gridProvider.IsPositionable(v, (int)Const.Positionable.EnemyStone))
+                {
+                    if (!EmptyAroundList.Contains(v))
+                    {
+                        EmptyAroundList.Add(v);
+                    }
+                }
+            }
         }
 
         public bool IsKilledIfStonePutted(Vector2Int position)
         {
             Log.DebugAssert("–¢ŽÀ‘•");
             return false;
+        }
+
+        public bool IsAtari()
+        {
+            return EmptyAroundList.Count == 1;
         }
 
         public void GetNoticeStoneOnAround(Vector2Int position)
@@ -90,6 +99,14 @@ namespace gaw241124.Model
             {
                 _aroundFilled.OnNext(StonePositionList);
             }
+        }
+
+        public void AddStone(Vector2Int position)
+        {
+            RegisterStonePosition(position);
+            EmptyAroundList.Remove(position);
+
+            RegisterEmptyAroundPosition(position);
         }
     }
 }

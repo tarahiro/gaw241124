@@ -15,14 +15,18 @@ namespace gaw241124.Presenter
 {
     public class EnemyPresenter : IInitializable
     {
-        [Inject] IEnemyModel _model;
+        [Inject] IEnemyStoneContainer _model;
         [Inject] IEnemyStoneView _stoneView;
+        [Inject] IEnemyBrain _brain;
+        [Inject] IEnemyTurn _turn;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
         public void Initialize()
         {
             _model.Arounded.Subscribe(OnArounded).AddTo(_compositeDisposable);
+            _turn.TurnEntered.Subscribe(_ => _brain.Enter()).AddTo(_compositeDisposable);
+            _brain.BrainEnded.Subscribe(_=>_turn.Exit()).AddTo(_compositeDisposable);
 
             _model.InitializeModel(_compositeDisposable);
         }

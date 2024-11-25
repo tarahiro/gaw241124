@@ -25,9 +25,6 @@ namespace gaw241124.Model
             Log.DebugLog("EnemyTurnEnter");
             _turn.Enter();
             _TurnEntered.OnNext(Unit.Default);
-
-            //fake
-            Exit();
         }
 
         public void Exit()

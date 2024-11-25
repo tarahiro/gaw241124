@@ -38,8 +38,11 @@ namespace gaw241124.Inject
                     var _stoneProvider = container.Resolve<StoneProvider>();
                     return x => new EnemyStoneChain(x, _gridProvider, _stoneProvider);
                 }, Lifetime.Singleton);
-            builder.Register<EnemyModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyStoneContainer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<EnemyStoneView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Hide
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();

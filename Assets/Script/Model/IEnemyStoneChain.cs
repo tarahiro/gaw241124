@@ -18,7 +18,9 @@ namespace gaw241124.Model
         List<Vector2Int> EmptyAroundList { get; }
         IObservable<List<Vector2Int>> AroundFilled { get; }
         bool IsKilledIfStonePutted(Vector2Int position);
+        bool IsAtari();
 
         void GetNoticeStoneOnAround(Vector2Int position);
+        void AddStone(Vector2Int position);
     }
 }

@@ -16,7 +16,7 @@ namespace gaw241124.Model
     {
         [Inject] IGridProvider _gridProvider;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IPlayerStonePutterModel _putterModel;
+        [Inject] IPlayerStonePutter _putterModel;
 
         Subject<Unit> _successed = new Subject<Unit>();
         public IObservable<Unit> Successed => _successed;

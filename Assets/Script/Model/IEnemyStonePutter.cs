@@ -11,7 +11,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IPlayerStonePutterModel
+    public interface IEnemyStonePutter
     {
         void PutStone(Vector2Int position);
     }

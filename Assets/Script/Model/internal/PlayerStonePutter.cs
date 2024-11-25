@@ -11,13 +11,13 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class PlayerStonePutter : IPlayerStonePutterModel,IPlayerTurnEnder
+    public class PlayerStonePutter : IPlayerStonePutter,IPlayerTurnEnder
     {
         [Inject] IStonePutterModel _stonePutterModel;
         [Inject] ITreasureModel _treasureModel;
         [Inject] IHideModel _hideModel;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IEnemyModel _enemyModel;
+        [Inject] IEnemyStoneContainer _enemyModel;
         [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
 
         Subject<Unit> _turnEnded { get; } = new Subject<Unit>();

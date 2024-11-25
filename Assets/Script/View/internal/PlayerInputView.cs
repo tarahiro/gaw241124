@@ -36,13 +36,11 @@ namespace gaw241124.View
         public void Enter()
         {
             _isAcceptInput = true;
-            Log.DebugLog("Enter");
         }
 
         public void Exit()
         {
             _isAcceptInput = false;
-            Log.DebugLog("Exit");
         }
     }
 }
