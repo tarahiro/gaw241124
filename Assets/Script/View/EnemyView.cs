@@ -11,12 +11,13 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface ITreasureItemView : IGridPositionGettable
+    public class EnemyView :MonoBehaviour, IEnemyView
     {
-        int Index { get; set; }
-        string Id { get; }
-        int Arg { get; }
+        [SerializeField] Transform _enemyViewRoot;
+        
+        public void InitializeView()
+        {
 
-        void Destroy();
+        }
     }
 }

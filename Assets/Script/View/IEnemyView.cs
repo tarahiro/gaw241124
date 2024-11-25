@@ -11,12 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface ITreasureItemView : IGridPositionGettable
+    public interface IEnemyView
     {
-        int Index { get; set; }
-        string Id { get; }
-        int Arg { get; }
-
-        void Destroy();
+        void InitializeView();
     }
 }

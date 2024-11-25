@@ -9,14 +9,12 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.View
+namespace gaw241124.Model
 {
-    public interface ITreasureItemView : IGridPositionGettable
+    public interface IEnemyModel
     {
-        int Index { get; set; }
-        string Id { get; }
-        int Arg { get; }
-
-        void Destroy();
+        void InitializeModel();
+        void TryNoticePlayerStone(Vector2Int position);
+        bool IsKillAnyStoneChainIfPutted(Vector2Int position);
     }
 }

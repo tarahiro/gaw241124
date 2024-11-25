@@ -30,6 +30,9 @@ namespace gaw241124.Inject
             builder.RegisterFactory<ITreasureItemView, TreasureModelItemArgs>(m => new TreasureModelItemArgs(m.Index,m.GridPosition,m.Id,m.Arg));
             builder.RegisterFactory<Const.Side, Vector2Int, StonePositionArgs>((s,v) => new StonePositionArgs(s,v));
 
+            //Enemy
+            builder.RegisterFactory<Vector2Int, IEnemyStoneChain>(x => new EnemyStoneChain(x));
+            builder.Register<EnemyModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Hide
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();
@@ -41,6 +44,7 @@ namespace gaw241124.Inject
                 entryPoints.Add<StonePresenter>();
                 entryPoints.Add<TreasurePresenter>();
                 entryPoints.Add<HidePresenter>();
+                entryPoints.Add<EnemyPresenter>();
 
             });
         }
