@@ -11,13 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public class EnemyView :MonoBehaviour, IEnemyView
+    public interface IEnemyStoneView
     {
-        [SerializeField] Transform _enemyViewRoot;
-        
-        public void InitializeView()
-        {
-
-        }
+        void RemoveStone(Vector2Int position);
     }
 }

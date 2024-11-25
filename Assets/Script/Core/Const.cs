@@ -22,7 +22,8 @@ namespace gaw241124
         public enum Positionable
         {
             Groundable,
-            Stone
+            PlayerStone,
+            EnemyStone
         }
 
         public enum Side

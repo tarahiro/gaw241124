@@ -22,12 +22,9 @@ namespace gaw241124.Model
 
         public void TryAchieveTreasure(Vector2Int position)
         {
-            Log.DebugLog(position);
 
             if(_dictionary.TryGetValue (position, out var data))
             {
-                Log.DebugLog("Success");
-
                 switch (data.Id)
                 {
                     case "AddStone":
@@ -46,7 +43,6 @@ namespace gaw241124.Model
         public void RegisterTreasure(TreasureModelItemArgs args)
         {
             _dictionary.Add(args.Position, new TreasureData(args.InstanceIndex, args.Id,args.arg));
-            Log.DebugLog("RegisterTreasure");
         }
 
         class TreasureData

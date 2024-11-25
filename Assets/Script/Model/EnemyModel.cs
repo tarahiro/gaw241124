@@ -18,11 +18,14 @@ namespace gaw241124.Model
         [Inject] StoneProvider _stoneProvider;
         [Inject] Func<Vector2Int, IEnemyStoneChain> _factory;
 
-        List<IEnemyStoneChain> _stoneChain;
+        List<IEnemyStoneChain> _stoneChainList = new List<IEnemyStoneChain>();
+        Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
 
-        public void InitializeModel()
+
+        public IObservable<List<Vector2Int>> Arounded => _arounded;
+
+        public void InitializeModel(CompositeDisposable _disposable)
         {
-            _stoneChain = new List<IEnemyStoneChain>();
 
             //とりあえず単一の石のみ
             var map = _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone);
@@ -35,26 +38,41 @@ namespace gaw241124.Model
                     if (map.GetTile((Vector3Int)v) == _stoneProvider.GetTilebase(Const.Side.Enemy))
                     {
                         var chain = _factory.Invoke(v);
+
+                        chain.AroundFilled.Subscribe(OnArounded).AddTo(_disposable);
+
                         chain.Initialize();
+
+                        _stoneChainList.Add(chain);
                     }
                 }
             }
         }
 
+        List<IEnemyStoneChain> _stackedDeleteStoneChainList;
+
         public void TryNoticePlayerStone(Vector2Int position)
         {
-            foreach (var stone in _stoneChain)
+            // 処理中にリストが変更される可能性がある
+            _stackedDeleteStoneChainList = new List<IEnemyStoneChain>();
+
+            foreach (var stoneChain in _stoneChainList)
             {
-                if (stone.EmptyAroundList.Contains(position))
+                if (stoneChain.EmptyAroundList.Contains(position))
                 {
-                    stone.GetNoticeStoneOnAround(position);
+                    stoneChain.GetNoticeStoneOnAround(position);
                 }
+            }
+
+            foreach(var stackedStoneChain in _stackedDeleteStoneChainList)
+            {
+                _stoneChainList.Remove(stackedStoneChain);
             }
         }
 
         public bool IsKillAnyStoneChainIfPutted(Vector2Int position)
         {
-            foreach (var stone in _stoneChain)
+            foreach (var stone in _stoneChainList)
             {
                 if (stone.IsKilledIfStonePutted(position))
                 {
@@ -62,6 +80,23 @@ namespace gaw241124.Model
                 }
             }
             return false;
+        }
+
+        void OnArounded(List<Vector2Int> positionList)
+        {
+            _arounded.OnNext(positionList);
+
+            foreach(var p in positionList)
+            {
+                foreach(var chain in _stoneChainList)
+                {
+                    if (chain.StonePositionList.Contains(p))
+                    {
+                        _stackedDeleteStoneChainList.Add(chain);
+                        return;
+                    }
+                }
+            }
         }
     }
 }

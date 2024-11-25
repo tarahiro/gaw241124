@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using gaw241124.Model;
+using gaw241124.View;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,10 +16,24 @@ namespace gaw241124.Presenter
     public class EnemyPresenter : IInitializable
     {
         [Inject] IEnemyModel _model;
+        [Inject] IEnemyStoneView _stoneView;
+
+        CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
         public void Initialize()
         {
-            _model.InitializeModel();
+            _model.Arounded.Subscribe(OnArounded).AddTo(_compositeDisposable);
+
+            _model.InitializeModel(_compositeDisposable);
+        }
+
+        void OnArounded(List<Vector2Int> positionList) 
+        {
+            foreach (var position in positionList)
+            {
+                _stoneView.RemoveStone(position);
+            }
+
         }
     }
 }

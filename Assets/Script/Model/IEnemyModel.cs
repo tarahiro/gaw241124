@@ -13,8 +13,9 @@ namespace gaw241124.Model
 {
     public interface IEnemyModel
     {
-        void InitializeModel();
+        void InitializeModel(CompositeDisposable disposables);
         void TryNoticePlayerStone(Vector2Int position);
         bool IsKillAnyStoneChainIfPutted(Vector2Int position);
+        IObservable<List<Vector2Int>> Arounded { get; }
     }
 }

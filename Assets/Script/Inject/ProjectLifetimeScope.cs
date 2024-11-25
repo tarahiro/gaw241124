@@ -6,6 +6,7 @@ using Tarahiro.TGrid;
 using VContainer;
 using VContainer.Unity;
 using UnityEngine;
+using System.ComponentModel;
 
 namespace gaw241124.Inject
 {
@@ -31,8 +32,14 @@ namespace gaw241124.Inject
             builder.RegisterFactory<Const.Side, Vector2Int, StonePositionArgs>((s,v) => new StonePositionArgs(s,v));
 
             //Enemy
-            builder.RegisterFactory<Vector2Int, IEnemyStoneChain>(x => new EnemyStoneChain(x));
+            builder.RegisterFactory<Vector2Int, IEnemyStoneChain>(container =>
+                {
+                    var _gridProvider = container.Resolve<IGridProvider>();
+                    var _stoneProvider = container.Resolve<StoneProvider>();
+                    return x => new EnemyStoneChain(x, _gridProvider, _stoneProvider);
+                }, Lifetime.Singleton);
             builder.Register<EnemyModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyStoneView>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Hide
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();

@@ -17,6 +17,7 @@ namespace gaw241124.Model
         [Inject] ITreasureModel _treasureModel;
         [Inject] IHideModel _hideModel;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
+        [Inject] IEnemyModel _enemyModel;
         [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
 
 
@@ -27,6 +28,7 @@ namespace gaw241124.Model
             _holdStoneModel.DeclineStone(1);
             _treasureModel.TryAchieveTreasure(position);
             _hideModel.ClearHide(position);
+            _enemyModel.TryNoticePlayerStone(position);
         }
 
 

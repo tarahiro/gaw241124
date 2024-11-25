@@ -19,7 +19,7 @@ namespace gaw241124.Model
         [Inject] IPlayerStonePutterModel _putterModel;
         public void TryPutStone(Vector2Int position)
         {
-            if (_gridProvider.IsPositionable(position, (int)Const.Positionable.Stone))
+            if (_gridProvider.IsPositionable(position, (int)Const.Positionable.PlayerStone))
             {
                 if (_holdStoneModel.HoldStoneNumber > 0)
                 {
