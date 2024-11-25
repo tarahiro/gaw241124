@@ -9,12 +9,10 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.Model
+namespace gaw241124.View
 {
-    public interface IEnemyBrain
+    public interface IEyesightView
     {
-        UniTask Enter();
-
-        IObservable<Unit> BrainEnded { get; }
+        void PutEyesight(Vector2Int position);
     }
 }

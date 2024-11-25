@@ -22,9 +22,9 @@ namespace gaw241124.Model
         Subject<Unit> _brainEnded = new Subject<Unit>();
         public IObservable<Unit> BrainEnded => _brainEnded;
 
-        public void Enter()
+        public async UniTask Enter()
         {
-            Log.DebugLog("BrainEnter");
+            await UniTask.WaitForSeconds(.2f);
 
             bool isStonePutted = false;
 

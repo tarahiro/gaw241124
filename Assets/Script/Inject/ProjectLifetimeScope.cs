@@ -44,6 +44,7 @@ namespace gaw241124.Inject
             builder.Register<EnemyStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<EnemyStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<EnemyStatus>(Lifetime.Singleton).AsSelf();
+            builder.RegisterComponentInHierarchy<EyesightView>().AsImplementedInterfaces(); 
 
             //Hide
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();
@@ -69,6 +70,10 @@ namespace gaw241124.Inject
                 entryPoints.Add<TurnPresenter>();
 
                 entryPoints.Add<GameManager>();
+
+#if ENABLE_DEBUG
+                entryPoints.Add<DebugManager>();
+#endif
 
             });
         }

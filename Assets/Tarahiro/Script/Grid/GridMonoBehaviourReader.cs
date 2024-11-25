@@ -18,10 +18,10 @@ namespace Tarahiro.TGrid
         {
             var m_TilemapArray = m_Grid.GetComponentsInChildren<Tilemap>();
 
-            m_TilemapArray.OrderBy(t => t.GetComponent<TilemapRenderer>().sortingOrder);
+           　var query =  m_TilemapArray.OrderBy(t => t.GetComponent<TilemapRenderer>().sortingOrder);
             //Order順に並べ替える
             _tileMapList = new List<Tilemap>();
-            foreach(var tilemap in m_TilemapArray)
+            foreach(var tilemap in query)
             {
                 _tileMapList.Add(tilemap);
             }

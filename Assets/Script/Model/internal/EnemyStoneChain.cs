@@ -27,10 +27,14 @@ namespace gaw241124.Model
         List<Vector2Int> _directionList;
         Tilemap _map;
         Subject<List<Vector2Int>> _aroundFilled = new Subject<List<Vector2Int>>();
+        Subject<Vector2Int> _eyesightStarted = new Subject<Vector2Int>();
 
         public List<Vector2Int> StonePositionList { get; set; } = new List<Vector2Int>();
         public List<Vector2Int> EmptyAroundList { get; set; } = new List<Vector2Int>();
+        public List<Vector2Int> EyesightList { get; set; } = new List<Vector2Int>();
+
         public IObservable<List<Vector2Int>> AroundFilled => _aroundFilled;
+        public IObservable<Vector2Int> EyesightStarted => _eyesightStarted;
 
 
         public void Initialize()
@@ -75,6 +79,13 @@ namespace gaw241124.Model
                     if (!EmptyAroundList.Contains(v))
                     {
                         EmptyAroundList.Add(v);
+
+                        //Ç∆ÇËÇ†Ç¶Ç∏êŒÇÃâEë§ÇæÇØeyesightÇ™Ç†ÇÈÇ±Ç∆Ç…Ç∑ÇÈ
+                        if(i == 1)
+                        {
+                            EyesightList.Add(v);
+                            _eyesightStarted.OnNext(v);
+                        }
                     }
                 }
             }

@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 116556237}
   - component: {fileID: 116556238}
   - component: {fileID: 116556239}
+  - component: {fileID: 116556240}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -320,6 +321,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showGroundStone: {fileID: 21300000, guid: e3a863f37647b6c4b82a5c436ce8fd58, type: 3}
+--- !u!114 &116556240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116556231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38b16d52ffe14e4d8383ed4e387e391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tileBase: {fileID: 11400000, guid: 603d6fa4d6329e5408ea5e403fc9d6bd, type: 2}
 --- !u!1 &271436310
 GameObject:
   m_ObjectHideFlags: 0

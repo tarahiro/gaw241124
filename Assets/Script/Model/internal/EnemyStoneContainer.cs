@@ -23,9 +23,11 @@ namespace gaw241124.Model
 
         List<IEnemyStoneChain> _stoneChainList = new List<IEnemyStoneChain>();
         Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
+        Subject<Vector2Int> _eyesightStarted = new Subject<Vector2Int>();
         CompositeDisposable _disposable;
 
         public IObservable<List<Vector2Int>> Arounded => _arounded;
+        public IObservable<Vector2Int> EyesightStarted => _eyesightStarted;
 
         public void InitializeModel(CompositeDisposable disposable)
         {
@@ -49,6 +51,7 @@ namespace gaw241124.Model
         {
             var chain = _factory.Invoke(position);
             chain.AroundFilled.Subscribe(OnArounded).AddTo(_disposable);
+            chain.EyesightStarted.Subscribe(OnEyesightStarted).AddTo(_disposable);
             chain.Initialize();
 
             _stoneChainList.Add(chain);
@@ -66,8 +69,14 @@ namespace gaw241124.Model
                 if (stoneChain.EmptyAroundList.Contains(position))
                 {
                     stoneChain.GetNoticeStoneOnAround(position);
-                    _enemyStatus.PercievedPlayerStone.Add(position);
-                    _enemyStatus.IsPercievePlayer = true;
+
+
+                    //StoneChain‘¤‚ÅŠ´’m‚µ‚½•û‚ª‚¢‚¢‚©‚à
+                    if (stoneChain.EyesightList.Contains(position))
+                    {
+                        _enemyStatus.PercievedPlayerStone.Add(position);
+                        _enemyStatus.IsPercievePlayer = true;
+                    }
                 }
             }
 
@@ -118,6 +127,11 @@ namespace gaw241124.Model
                     }
                 }
             }
+        }
+
+        void OnEyesightStarted(Vector2Int position)
+        {
+            _eyesightStarted.OnNext(position);
         }
 
         public void NoticeEnemyStone(Vector2Int position)
