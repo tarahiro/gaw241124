@@ -103,7 +103,7 @@ namespace gaw241124.Model
 
         public void AddStone(Vector2Int position)
         {
-            RegisterStonePosition(position);
+            StonePositionList.Add(position);
             EmptyAroundList.Remove(position);
 
             RegisterEmptyAroundPosition(position);

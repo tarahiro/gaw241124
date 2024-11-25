@@ -3,10 +3,12 @@ using gaw241124;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Claims;
 using Tarahiro;
 using Tarahiro.TGrid;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UIElements;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,18 +19,18 @@ namespace gaw241124.Model
         [Inject] IGridProvider _gridProvider;
         [Inject] StoneProvider _stoneProvider;
         [Inject] Func<Vector2Int, IEnemyStoneChain> _factory;
+        [Inject] EnemyStatus _enemyStatus;
 
         List<IEnemyStoneChain> _stoneChainList = new List<IEnemyStoneChain>();
         Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
-
+        CompositeDisposable _disposable;
 
         public IObservable<List<Vector2Int>> Arounded => _arounded;
 
-        public void InitializeModel(CompositeDisposable _disposable)
+        public void InitializeModel(CompositeDisposable disposable)
         {
-
-            //とりあえず単一の石のみ
             var map = _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone);
+            _disposable = disposable;
 
             for (int i = map.origin.x; i < map.origin.x + map.size.x; i++)
             {
@@ -37,16 +39,19 @@ namespace gaw241124.Model
                     var v = new Vector2Int(i, j);
                     if (map.GetTile((Vector3Int)v) == _stoneProvider.GetTilebase(Const.Side.Enemy))
                     {
-                        var chain = _factory.Invoke(v);
-
-                        chain.AroundFilled.Subscribe(OnArounded).AddTo(_disposable);
-
-                        chain.Initialize();
-
-                        _stoneChainList.Add(chain);
+                        RegisterStoneChain(v);
                     }
                 }
             }
+        }
+
+        void RegisterStoneChain(Vector2Int position)
+        {
+            var chain = _factory.Invoke(position);
+            chain.AroundFilled.Subscribe(OnArounded).AddTo(_disposable);
+            chain.Initialize();
+
+            _stoneChainList.Add(chain);
         }
 
         List<IEnemyStoneChain> _stackedDeleteStoneChainList;
@@ -61,6 +66,8 @@ namespace gaw241124.Model
                 if (stoneChain.EmptyAroundList.Contains(position))
                 {
                     stoneChain.GetNoticeStoneOnAround(position);
+                    _enemyStatus.PercievedPlayerStone.Add(position);
+                    _enemyStatus.IsPercievePlayer = true;
                 }
             }
 
@@ -115,13 +122,63 @@ namespace gaw241124.Model
 
         public void NoticeEnemyStone(Vector2Int position)
         {
-            foreach (var stone in _stoneChainList)
+            List<IEnemyStoneChain> adjacentChainList = new List<IEnemyStoneChain>();
+
+            foreach (var chain in _stoneChainList)
             {
-                if (stone.EmptyAroundList.Contains(position))
+                if (chain.EmptyAroundList.Contains(position))
                 {
-                    stone.AddStone(position);
+                    adjacentChainList.Add(chain);
                 }
             }
+
+            //隣接Chainが2個以上だったら、連結
+            if(adjacentChainList.Count > 1)
+            {
+                adjacentChainList[0].AddStone(position);
+                for(int i = 1; i < adjacentChainList.Count; i++)
+                {
+                    for(int j = 0; j < adjacentChainList[i].StonePositionList.Count; j++)
+                    {
+                        adjacentChainList[0].AddStone(adjacentChainList[i].StonePositionList[j]);
+                    }
+                }
+
+                for (int i = 1; i < adjacentChainList.Count; i++)
+                {
+                    _stoneChainList.Remove(adjacentChainList[i]);
+                }
+
+
+            }
+            //隣接chainが1個だったら、石を足すだけ
+            else if (adjacentChainList.Count == 1)
+            {
+
+                adjacentChainList[0].AddStone(position);
+            }
+            //隣接chainが0個だったら、新chainとして登録
+            else
+            {
+                RegisterStoneChain(position);
+            }
+        }
+
+        public Vector2 Centroid()
+        {
+            Vector2 v = Vector2.zero;
+            int stoneCount = 0;
+
+            foreach (var stoneChain in _stoneChainList)
+            {
+                foreach(var stone in stoneChain.StonePositionList)
+                {
+                    v += stone;
+                    stoneCount++;
+                }
+            }
+
+            return v / stoneCount;
 
         }
     }

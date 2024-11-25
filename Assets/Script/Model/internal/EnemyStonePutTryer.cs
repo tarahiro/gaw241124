@@ -17,7 +17,7 @@ namespace gaw241124.Model
     {
         [Inject] IGridProvider _gridProvider;
         [Inject] IEnemyStonePutter _enemyStonePutter;
-        public void TryPutStone(Vector2Int position)
+        public bool TryPutStone(Vector2Int position)
         {
             if (_gridProvider.IsPositionable(position, (int)Const.Positionable.EnemyStone))
             {
@@ -27,9 +27,11 @@ namespace gaw241124.Model
                     w => _gridProvider.IsPositionable((w + position), (int)Const.Positionable.EnemyStone)))
                 {
                     _enemyStonePutter.PutStone(position);
+                    return true;
                 }
 
             }
+            return false;
 
         }
     }

@@ -43,6 +43,7 @@ namespace gaw241124.Inject
             builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<EnemyStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<EnemyStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyStatus>(Lifetime.Singleton).AsSelf();
 
             //Hide
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();

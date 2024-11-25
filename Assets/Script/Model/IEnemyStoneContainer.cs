@@ -19,5 +19,7 @@ namespace gaw241124.Model
         bool IsKillAnyStoneChainIfPutted(Vector2Int position);
         bool TryGetAtariStone(out IEnemyStoneChain enemyStoneChain);
         IObservable<List<Vector2Int>> Arounded { get; }
+
+        Vector2 Centroid();
     }
 }

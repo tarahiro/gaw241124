@@ -12,7 +12,7 @@ namespace gaw241124
 {
     public interface IEnemyStonePutTryer
     {
-        void TryPutStone(Vector2Int position);
+        bool TryPutStone(Vector2Int position);
 
     }
 }

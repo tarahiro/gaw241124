@@ -13,7 +13,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Presenter
 {
-    public class EnemyPresenter : IInitializable
+    public class EnemyPresenter : IPostInitializable
     {
         [Inject] IEnemyStoneContainer _model;
         [Inject] IEnemyStoneView _stoneView;
@@ -22,7 +22,7 @@ namespace gaw241124.Presenter
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
-        public void Initialize()
+        public void PostInitialize()
         {
             _model.Arounded.Subscribe(OnArounded).AddTo(_compositeDisposable);
             _turn.TurnEntered.Subscribe(_ => _brain.Enter()).AddTo(_compositeDisposable);
