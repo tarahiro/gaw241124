@@ -1,22 +1,22 @@
 using Cysharp.Threading.Tasks;
-using gaw241124;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tarahiro;
-using Tarahiro.TGrid;
 using UniRx;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.Model
+namespace gaw241124
 {
-    public interface IPlayerStonePutTryer
+    public class GameManager : IPostStartable
     {
-        void TryPutStone(Vector2Int position);
+        [Inject] IAdapterManagerToModel _adapter;
 
-
-        IObservable<Unit> Successed { get; }
+        public void PostStart()
+        {
+            _adapter.EnterModel();
+        }
     }
 }

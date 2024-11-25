@@ -20,7 +20,7 @@ namespace gaw241124.Presenter
         [Inject] IPlayerStoneInitializer _playerStoneInitializer;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
         [Inject] IStonePutView _view;
-        [Inject] IGridTouchView _gridTouchView;
+        [Inject] IPlayerInputView _gridTouchView;
         [Inject] IStoneNumberUiView _numberUiView;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();

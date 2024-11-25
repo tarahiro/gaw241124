@@ -17,12 +17,18 @@ namespace gaw241124.Model
         [Inject] IGridProvider _gridProvider;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
         [Inject] IPlayerStonePutterModel _putterModel;
+
+        Subject<Unit> _successed = new Subject<Unit>();
+        public IObservable<Unit> Successed => _successed;
+
+
         public void TryPutStone(Vector2Int position)
         {
             if (_gridProvider.IsPositionable(position, (int)Const.Positionable.PlayerStone))
             {
                 if (_holdStoneModel.HoldStoneNumber > 0)
                 {
+                    _successed.OnNext(Unit.Default);
                     _putterModel.PutStone(position);
                 }
             }

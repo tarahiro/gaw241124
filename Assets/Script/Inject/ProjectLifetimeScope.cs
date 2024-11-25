@@ -23,7 +23,7 @@ namespace gaw241124.Inject
             builder.Register<PlayerStoneInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerHoldStoneModel>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<PlayerStonePutterModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Treasure
             builder.RegisterComponentInHierarchy<TreasureView>().AsImplementedInterfaces();
@@ -45,13 +45,26 @@ namespace gaw241124.Inject
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();
             builder.RegisterComponentInHierarchy<HideModel>().AsImplementedInterfaces();
 
+            //Turn
+            builder.Register<TurnModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyTurn>(Lifetime.Singleton).As<IEnemyTurn>();
+            builder.Register<PlayerTurn>(Lifetime.Singleton).As<IPlayerTurn>();
+            builder.Register<Turn>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            //Manager
+            builder.Register<AdapterManagerToModel>(Lifetime.Singleton).AsImplementedInterfaces();
+
             builder.UseEntryPoints(Lifetime.Singleton, entryPoints =>
             {
-                entryPoints.Add<GridTouchView>();
+                entryPoints.Add<PlayerInputView>();
                 entryPoints.Add<StonePresenter>();
                 entryPoints.Add<TreasurePresenter>();
                 entryPoints.Add<HidePresenter>();
                 entryPoints.Add<EnemyPresenter>();
+                entryPoints.Add<PlayerPresenter>();
+                entryPoints.Add<TurnPresenter>();
+
+                entryPoints.Add<GameManager>();
 
             });
         }

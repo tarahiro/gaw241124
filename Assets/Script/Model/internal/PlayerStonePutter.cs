@@ -11,7 +11,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class PlayerStonePutterModel : IPlayerStonePutterModel
+    public class PlayerStonePutter : IPlayerStonePutterModel,IPlayerTurnEnder
     {
         [Inject] IStonePutterModel _stonePutterModel;
         [Inject] ITreasureModel _treasureModel;
@@ -19,6 +19,10 @@ namespace gaw241124.Model
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
         [Inject] IEnemyModel _enemyModel;
         [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
+
+        Subject<Unit> _turnEnded { get; } = new Subject<Unit>();
+
+        public IObservable<Unit> TurnEnded => _turnEnded;
 
 
         public void PutStone(Vector2Int position)
@@ -29,6 +33,7 @@ namespace gaw241124.Model
             _treasureModel.TryAchieveTreasure(position);
             _hideModel.ClearHide(position);
             _enemyModel.TryNoticePlayerStone(position);
+            _turnEnded.OnNext(Unit.Default);
         }
 
 
