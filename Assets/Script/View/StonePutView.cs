@@ -17,13 +17,14 @@ namespace gaw241124.View
     public class StonePutView : MonoBehaviour, IStonePutView
     {
         [Inject] IGridProvider _gridProvider;
+        [Inject] StoneProvider _stoneProvider;
 
-        [SerializeField] TileBase _tileBase;
+        [SerializeField] List<TileBase> _tileBase;
 
 
-        public void PutStone(Vector3Int _position)
+        public void PutStone(StonePositionArgs positionArgs)
         {
-            _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone).SetTile(_position, _tileBase);
+            _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone).SetTile((Vector3Int)positionArgs.Position, _tileBase[(int)positionArgs.Side]);
         }
 
     }

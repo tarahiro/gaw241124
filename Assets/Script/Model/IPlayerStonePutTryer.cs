@@ -12,9 +12,8 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IStonePutTryer
+    public interface IPlayerStonePutTryer
     {
-
         void TryPutStone(Vector2Int position);
     }
 }

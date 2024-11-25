@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tarahiro;
-using Tarahiro.TGrid;
 using UniRx;
 using UnityEngine;
 using VContainer;
@@ -12,27 +11,24 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class StonePutterModel : IStonePutterModel
+    public class PlayerStonePutterModel : IPlayerStonePutterModel
     {
+        [Inject] IStonePutterModel _stonePutterModel;
         [Inject] ITreasureModel _treasureModel;
         [Inject] IHideModel _hideModel;
-        [Inject] IGridProvider _gridProvider;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-
-        Subject<Vector2Int> _stonePutted = new Subject<Vector2Int>();
-
-        public IObservable<Vector2Int> StonePutted => _stonePutted;
-
+        [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
 
 
         public void PutStone(Vector2Int position)
         {
-            _stonePutted.OnNext(position);
-            _holdStoneModel.DeclineStone(1);
+            _stonePutterModel.PutStone(_factory.Invoke(Const.Side.Player,position));
 
+            _holdStoneModel.DeclineStone(1);
             _treasureModel.TryAchieveTreasure(position);
             _hideModel.ClearHide(position);
-
         }
+
+
     }
 }

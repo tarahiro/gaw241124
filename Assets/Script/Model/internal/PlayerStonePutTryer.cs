@@ -12,16 +12,15 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class StonePutTryer : IStonePutTryer
+    public class PlayerStonePutTryer : IPlayerStonePutTryer
     {
         [Inject] IGridProvider _gridProvider;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IStonePutterModel _putterModel;
+        [Inject] IPlayerStonePutterModel _putterModel;
         public void TryPutStone(Vector2Int position)
         {
             if (_gridProvider.IsPositionable(position, (int)Const.Positionable.Stone))
             {
-
                 if (_holdStoneModel.HoldStoneNumber > 0)
                 {
                     _putterModel.PutStone(position);

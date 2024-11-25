@@ -13,6 +13,7 @@ namespace Tarahiro.TGrid
             builder.RegisterInstance<SpriteInformationContainer>(_spriteInformationContainer).AsSelf();
             builder.RegisterComponentInHierarchy<GridMonoBehaviourReader>().AsImplementedInterfaces();
 
+
             builder.UseEntryPoints(Lifetime.Singleton, entryPoints =>
             {
                 entryPoints.Add<GridProvider>();

@@ -13,6 +13,6 @@ namespace gaw241124.View
 {
     public interface IStonePutView
     {
-        void PutStone(Vector3Int _position);
+        void PutStone(StonePositionArgs positionArgs);
     }
 }

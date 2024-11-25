@@ -7,26 +7,8 @@ namespace Tarahiro.TGrid
     [CreateAssetMenu(menuName = "SpriteInformationContainer")]
     public class SpriteInformationContainer : ScriptableObject
     {
-        /*
         [SerializeField]
-        List<Sprite> m_UnWalkableTileList;
-        [SerializeField]
-        List<Sprite> m_UnShipableTileList;
-        */
-
-        [SerializeField]
-        List<SpriteList> m_UnPositionableTileList;
-
-        /*
-        public List<Sprite> GetUnWalkableTileList()
-        {
-            return m_UnWalkableTileList;
-        }
-        public List<Sprite> GetUnShipableTileList()
-        {
-            return m_UnShipableTileList;
-        }
-        */
+        List<SerializableSpriteList> m_UnPositionableTileList;
 
         public List<Sprite> GetPositionableList(int positionableIndex)
         {
@@ -38,14 +20,5 @@ namespace Tarahiro.TGrid
             return m_UnPositionableTileList.Count;
         }
 
-        [System.Serializable]
-        private class SpriteList
-        {
-            [SerializeField]
-            string name;
-
-            [SerializeField]
-            public List<Sprite> spriteList;
-        }
     }
 }

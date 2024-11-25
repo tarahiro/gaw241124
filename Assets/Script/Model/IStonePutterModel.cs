@@ -13,9 +13,8 @@ namespace gaw241124.Model
 {
     public interface IStonePutterModel
     {
-        void PutStone(Vector2Int position);
+        void PutStone(StonePositionArgs positionArgs);
 
-
-        IObservable<Vector2Int> StonePutted { get; }
+        IObservable<StonePositionArgs> StonePutted { get; }
     }
 }

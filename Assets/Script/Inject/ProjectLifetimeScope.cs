@@ -11,15 +11,18 @@ namespace gaw241124.Inject
 {
     public class ProjectLifetimeScope : LifetimeScope
     {
+        [SerializeField] StoneProvider _stoneProvider;
         protected override void Configure(IContainerBuilder builder)
         {
             //Stone
+            builder.RegisterInstance<StoneProvider>(_stoneProvider).AsSelf();
             builder.RegisterComponentInHierarchy<StonePutView>().AsImplementedInterfaces();
             builder.RegisterComponentInHierarchy<StoneNumberUiView>().AsImplementedInterfaces();
             builder.Register<StonePutterModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerStoneInitializer>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<StonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerHoldStoneModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerStonePutterModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Treasure
             builder.RegisterComponentInHierarchy<TreasureView>().AsImplementedInterfaces();

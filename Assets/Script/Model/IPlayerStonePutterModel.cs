@@ -13,9 +13,6 @@ namespace gaw241124.Model
 {
     public interface IPlayerStonePutterModel
     {
-        /*
-        void TryPutStone(Vector2Int position);
-        void AddStone(int addedStoneNumber);
-        */
+        void PutStone(Vector2Int position);
     }
 }

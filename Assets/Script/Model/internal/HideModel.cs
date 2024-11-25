@@ -17,6 +17,7 @@ namespace gaw241124.Model
     public class HideModel: MonoBehaviour, IHideModel
     {
         [Inject] IGridProvider _gridProvider;
+        [Inject] StoneProvider _stoneProvider;
 
         [SerializeField] Sprite _showGroundStone;
          
@@ -45,7 +46,7 @@ namespace gaw241124.Model
                         {
                             for (int j = -c_range; j <= c_range; j++)
                             {
-                                if (stoneTile.GetSprite(new Vector3Int(x + i, y + j, 0)) == _showGroundStone)
+                                if (stoneTile.GetTile(new Vector3Int(x + i, y + j, 0)) == _stoneProvider.GetTilebase(Const.Side.Player))
                                 {
                                     goto EndRangeLoop;
                                 }

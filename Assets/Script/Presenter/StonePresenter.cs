@@ -15,7 +15,7 @@ namespace gaw241124.Presenter
 {
     public class StonePresenter:IInitializable
     {
-        [Inject] IStonePutTryer _stonePutTryer;
+        [Inject] IPlayerStonePutTryer _stonePutTryer;
         [Inject] IStonePutterModel _model;
         [Inject] IPlayerStoneInitializer _playerStoneInitializer;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
@@ -34,9 +34,9 @@ namespace gaw241124.Presenter
             _playerStoneInitializer.InitializeModel();
         }
 
-        void OnCreateStone(Vector2Int position)
+        void OnCreateStone(StonePositionArgs positionArgs)
         {
-            _view.PutStone((Vector3Int)position);
+            _view.PutStone(positionArgs);
         }
     }
 }
