@@ -15,6 +15,7 @@ namespace Tarahiro.TGrid
             return new Vector2Int((int)Mathf.Round(vec.x - .5f), (int)Mathf.Round(vec.y - .5f));
         }
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         public static List<Vector2Int> GetDirectionList()
         {
             return _direction;

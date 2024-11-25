@@ -13,7 +13,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Presenter
 {
-    public class StonePresenter:IInitializable
+    public class StonePresenter: IPostInitializable
     {
         [Inject] IPlayerStonePutTryer _stonePutTryer;
         [Inject] IStonePutterModel _model;
@@ -25,7 +25,7 @@ namespace gaw241124.Presenter
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
-        public void Initialize()
+        public void PostInitialize()
         {
             _model.StonePutted.Subscribe(OnCreateStone).AddTo(_compositeDisposable);
             _holdStoneModel.StoneUpdated.Subscribe(_numberUiView.UpdateStoneNumber).AddTo(_compositeDisposable);

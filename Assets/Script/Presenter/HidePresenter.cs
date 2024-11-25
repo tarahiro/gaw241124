@@ -13,14 +13,13 @@ using VContainer.Unity;
 
 namespace gaw241124.Presenter
 {
-    public class HidePresenter:IInitializable
-    {
+    public class HidePresenter : IPostInitializable { 
         [Inject] IHideModel _model;
         [Inject] IHideView _view;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
-        public void Initialize()
+        public void PostInitialize()
         {
             _model.GroundShowed.Subscribe(_view.ShowMap).AddTo(_compositeDisposable);
             _model.Hided.Subscribe(_view.Hide).AddTo(_compositeDisposable);
