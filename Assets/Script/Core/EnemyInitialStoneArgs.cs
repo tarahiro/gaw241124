@@ -15,10 +15,13 @@ namespace gaw241124
         public string Id { get; set; }
         public Vector2Int Position { get; set; }
 
-        public EnemyInitialStoneArgs(string id, Vector2Int position)
+        public List<Vector2Int> EyesightDirection { get; set; }
+
+        public EnemyInitialStoneArgs(string id, Vector2Int position, List<Vector2Int> eyesightDirection)
         {
             Id = id;
             Position = position;
+            EyesightDirection = eyesightDirection;
         }
     }
 }

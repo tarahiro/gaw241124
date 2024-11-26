@@ -11,8 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IEnemyGroupStonePutter
+    public interface IEnemyGroupDefeatable
     {
-        void PutStone(Vector2Int position, List<Vector2Int> eyesightDirection);
+        IObservable<Unit> Defeated { get; }
     }
 }

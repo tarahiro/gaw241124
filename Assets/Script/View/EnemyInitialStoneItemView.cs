@@ -15,10 +15,13 @@ namespace gaw241124.View
     public class EnemyInitialStoneItemView : MonoBehaviour, IEnemyInitialStoneItemView
     {
         [SerializeField] string _id;
+        [SerializeField] List<Vector2Int> _eyesightDirection;
 
         public string Id => _id;
 
         public Vector2Int GridPosition => GridUtil.ConvertPosition(transform.position);
+
+        public List<Vector2Int> EyesightDirection => _eyesightDirection;
 
     }
 }

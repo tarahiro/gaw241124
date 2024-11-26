@@ -14,17 +14,17 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyGroupStoneContainer : IEnemyGroupStoneContainer
+    public class EnemyGroupStoneContainer : IEnemyGroupStoneContainer, IEnemyGroupDefeatable
     {
         IGridProvider _gridProvider;
         StoneProvider _stoneProvider;
         EnemyGroupStatus _enemyStatus;
-        Func<Vector2Int, IEnemyGroupStoneChain> _factory;
+        Func<Vector2Int, List<Vector2Int>, IEnemyGroupStoneChain> _factory;
 
 
         [Inject]
         public EnemyGroupStoneContainer(IGridProvider gridProvider, StoneProvider stoneProvider, EnemyGroupStatus enemyStatus,
-            Func<Vector2Int, IEnemyGroupStoneChain>factory)
+            Func<Vector2Int, List<Vector2Int>, IEnemyGroupStoneChain> factory)
         {
             _gridProvider = gridProvider;
             _stoneProvider = stoneProvider;
@@ -38,6 +38,9 @@ namespace gaw241124.Model
         Subject<Vector2Int> _eyesightStarted = new Subject<Vector2Int>();
         CompositeDisposable _disposable;
 
+        Subject<Unit> _defeated = new Subject<Unit>();
+
+        public IObservable<Unit> Defeated => _defeated;
         public IObservable<List<Vector2Int>> Arounded => _arounded;
         public IObservable<Vector2Int> EyesightStarted => _eyesightStarted;
 
@@ -46,9 +49,9 @@ namespace gaw241124.Model
             _disposable = disposable;
         }
 
-        void RegisterStoneChain(Vector2Int position)
+        void RegisterStoneChain(Vector2Int position, List<Vector2Int> eyesightDirection)
         {
-            var chain = _factory.Invoke(position);
+            var chain = _factory.Invoke(position, eyesightDirection);
             chain.AroundFilled.Subscribe(OnArounded).AddTo(_disposable);
             chain.EyesightStarted.Subscribe(OnEyesightStarted).AddTo(_disposable);
             chain.Initialize();
@@ -84,6 +87,10 @@ namespace gaw241124.Model
             foreach(var stackedStoneChain in _stackedDeleteStoneChainList)
             {
                 _stoneChainList.Remove(stackedStoneChain);
+                if (_stoneChainList.Count == 0)
+                {
+                    _defeated.OnNext(Unit.Default);
+                }
             }
         }
 
@@ -135,7 +142,7 @@ namespace gaw241124.Model
             _eyesightStarted.OnNext(position);
         }
 
-        public void NoticeEnemyStone(Vector2Int position)
+        public void NoticeEnemyStone(Vector2Int position, List<Vector2Int> eyesightDirection)
         {
             List<IEnemyGroupStoneChain> adjacentChainList = new List<IEnemyGroupStoneChain>();
 
@@ -150,12 +157,12 @@ namespace gaw241124.Model
             //—×ÚChain‚ª2ŒÂˆÈã‚¾‚Á‚½‚çA˜AŒ‹
             if(adjacentChainList.Count > 1)
             {
-                adjacentChainList[0].AddStone(position);
+                adjacentChainList[0].AddStone(position,eyesightDirection);
                 for(int i = 1; i < adjacentChainList.Count; i++)
                 {
                     for(int j = 0; j < adjacentChainList[i].StonePositionList.Count; j++)
                     {
-                        adjacentChainList[0].AddStone(adjacentChainList[i].StonePositionList[j]);
+                        adjacentChainList[0].AddStone(adjacentChainList[i].StonePositionList[j],eyesightDirection);
                     }
                 }
 
@@ -170,12 +177,12 @@ namespace gaw241124.Model
             else if (adjacentChainList.Count == 1)
             {
 
-                adjacentChainList[0].AddStone(position);
+                adjacentChainList[0].AddStone(position,eyesightDirection);
             }
             //—×Úchain‚ª0ŒÂ‚¾‚Á‚½‚çAVchain‚Æ‚µ‚Ä“o˜^
             else
             {
-                RegisterStoneChain(position);
+                RegisterStoneChain(position, eyesightDirection);
             }
         }
 

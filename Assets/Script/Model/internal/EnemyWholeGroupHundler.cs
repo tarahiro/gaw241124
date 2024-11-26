@@ -19,7 +19,8 @@ namespace gaw241124.Model
 
 
         List<IEnemyGroupInstanceProvider> _enemyGroupInstanceProviderList = new List<IEnemyGroupInstanceProvider>();
-        
+        List<IEnemyGroupInstanceProvider> _removableList;
+
 
         public void InitializeModel()
         {
@@ -28,9 +29,16 @@ namespace gaw241124.Model
 
         public void TryNoticePlayerStone(Vector2Int position)
         {
+            _removableList = new List<IEnemyGroupInstanceProvider>();
+
             foreach (var enemyGroupInstanceProvider in _enemyGroupInstanceProviderList)
             {
                 enemyGroupInstanceProvider.GetInstance<IEnemyGroupStoneContainer>().TryNoticePlayerStone(position);
+            }
+
+            foreach(var item in _removableList)
+            {
+                _enemyGroupInstanceProviderList.Remove(item);
             }
         }
 
@@ -39,10 +47,13 @@ namespace gaw241124.Model
             if(!_enemyGroupInstanceProviderList.Any(x => x.GroupId == args.Id))
             {
                 Log.DebugLog(args.Id + "ÇÃÉOÉãÅ[Éví«â¡");
-                _enemyGroupInstanceProviderList.Add(_factory.Invoke(args.Id));
+                var v = _factory.Invoke(args.Id);
+                v.Disposed.Subscribe(RemoveEnemyGroup);
+                v.GetInstance<IEnemyGroupDefeatable>().Defeated.Subscribe(_ => v.DisposeEnemyGroup());
+                _enemyGroupInstanceProviderList.Add(v);
             }
 
-            _enemyGroupInstanceProviderList.First(x => x.GroupId == args.Id).GetInstance<IEnemyGroupStonePutter>().PutStone(args.Position);
+            _enemyGroupInstanceProviderList.First(x => x.GroupId == args.Id).GetInstance<IEnemyGroupStonePutter>().PutStone(args.Position,args.EyesightDirection);
         }
 
         public List<T> GetInstanceOfAllGroup<T>()
@@ -53,6 +64,11 @@ namespace gaw241124.Model
                 list.Add(item.GetInstance<T>());
             }
             return list;
+        }
+
+        void RemoveEnemyGroup(string groupId)
+        {
+            _removableList.Add(_enemyGroupInstanceProviderList.First(x => x.GroupId == groupId));
         }
     }
 }

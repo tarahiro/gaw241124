@@ -16,5 +16,9 @@ namespace gaw241124.Model
         string GroupId { get; }
 
         T GetInstance<T>();
+
+        IObservable<string> Disposed { get; }
+
+        void DisposeEnemyGroup();
     }
 }

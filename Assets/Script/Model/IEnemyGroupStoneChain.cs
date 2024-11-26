@@ -23,6 +23,6 @@ namespace gaw241124.Model
         bool IsAtari();
 
         void GetNoticeStoneOnAround(Vector2Int position);
-        void AddStone(Vector2Int position);
+        void AddStone(Vector2Int position, List<Vector2Int> eyesightDirection);
     }
 }

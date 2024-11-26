@@ -19,7 +19,7 @@ namespace gaw241124.Presenter
         [Inject] IEnemyStoneView _stoneView;
         [Inject] IEyesightView _eyesightView;
 
-        CompositeDisposable _compositeDisposable = new CompositeDisposable();
+        [Inject] CompositeDisposable _compositeDisposable;
 
         public void PostInitialize()
         {

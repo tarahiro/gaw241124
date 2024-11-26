@@ -27,11 +27,11 @@ IEnemyGroupStoneContainer container, Func<Const.Side, Vector2Int, StonePositionA
         }
 
 
-        public void PutStone(Vector2Int position)
+        public void PutStone(Vector2Int position, List<Vector2Int> eyesightDirection)
         {
             _stonePutterModel.PutStone(_factory.Invoke(Const.Side.Enemy, position));
 
-            _container.NoticeEnemyStone(position);
+            _container.NoticeEnemyStone(position,eyesightDirection);
         }
     }
 }

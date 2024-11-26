@@ -15,5 +15,7 @@ namespace gaw241124.View
     {
         string Id { get; }
 
+        List<Vector2Int> EyesightDirection { get; }
+
     }
 }

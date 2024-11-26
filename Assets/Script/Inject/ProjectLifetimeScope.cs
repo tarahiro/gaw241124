@@ -7,6 +7,8 @@ using VContainer;
 using VContainer.Unity;
 using UnityEngine;
 using System.ComponentModel;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace gaw241124.Inject
 {
@@ -32,11 +34,14 @@ namespace gaw241124.Inject
             builder.RegisterFactory<Const.Side, Vector2Int, StonePositionArgs>((s,v) => new StonePositionArgs(s,v));
 
             //Enemy
-            builder.RegisterFactory<Vector2Int, IEnemyGroupStoneChain>(container =>
+            builder.RegisterFactory<Vector2Int, List<Vector2Int>, IEnemyGroupStoneChain>(container =>
                 {
                     var _gridProvider = container.Resolve<IGridProvider>();
                     var _stoneProvider = container.Resolve<StoneProvider>();
-                    return x => new EnemyGroupStoneChain(x, _gridProvider, _stoneProvider);
+                    return (x, y) =>
+                    {
+                        return new EnemyGroupStoneChain(x, y, _gridProvider, _stoneProvider);
+                    };
                 }, Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<EyesightView>().AsImplementedInterfaces();
             builder.Register<EnemyWholeGroupHundler>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -51,7 +56,7 @@ namespace gaw241124.Inject
                     return instance;
                 };
             }, Lifetime.Scoped);
-            builder.RegisterFactory<IEnemyInitialStoneItemView, EnemyInitialStoneArgs>(x => new EnemyInitialStoneArgs(x.Id, x.GridPosition));
+            builder.RegisterFactory<IEnemyInitialStoneItemView, EnemyInitialStoneArgs>(x => new EnemyInitialStoneArgs(x.Id, x.GridPosition, x.EyesightDirection));
             builder.RegisterComponentInHierarchy<EnemyInitialStoneView>().AsImplementedInterfaces();
             builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
 

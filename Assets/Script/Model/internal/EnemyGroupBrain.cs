@@ -40,7 +40,7 @@ namespace gaw241124.Model
             if (_container.TryGetAtariStone(out var v))
             {
                 Log.DebugLog("AtariExist");
-                isStonePutted =  _putTryer.TryPutStone(v.EmptyAroundList[0]);
+                isStonePutted =  _putTryer.TryPutStone(v.EmptyAroundList[0],new List<Vector2Int>());
             }
 
             if (!isStonePutted)
@@ -67,7 +67,7 @@ namespace gaw241124.Model
 
                     foreach(var item in query)
                     {
-                        isStonePutted = _putTryer.TryPutStone(item.Position);
+                        isStonePutted = _putTryer.TryPutStone(item.Position, new List<Vector2Int>() );
                         if (isStonePutted) break;
                     }
 

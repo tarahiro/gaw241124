@@ -4,15 +4,20 @@ using gaw241124.View;
 using VContainer;
 using VContainer.Unity;
 using Tarahiro;
+using System;
+using UniRx;
 
 namespace gaw241124.Inject
 {
     public class EnemyGroupLifetimeScope : LifetimeScope, IEnemyGroupInstanceProvider
     {
         IEnemyGroupStonePutter _enemyStoneContainer;
+        CompositeDisposable disposables = new CompositeDisposable();
 
         string _groupId;
 
+        Subject<string> _disposed = new Subject<string>();
+        public IObservable<string> Disposed => _disposed;
         public string GroupId => _groupId;
 
         public void Construct(string groupId)
@@ -22,17 +27,16 @@ namespace gaw241124.Inject
 
         protected override void Configure(IContainerBuilder builder)
         {
-            Log.DebugLog("Configure");
+            builder.Register<EnemyGroupStoneContainer>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<EnemyStoneView>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<EnemyGroupBrain>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<EnemyGroupStatus>(Lifetime.Scoped).AsSelf();
+            builder.Register<EnemyGroupStonePutter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<EnemyGroupStonePutTryer>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.RegisterInstance<CompositeDisposable>(disposables);
 
-            builder.Register<EnemyGroupStoneContainer>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyStoneView>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyGroupBrain>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyGroupStatus>(Lifetime.Singleton).AsSelf();
-            builder.Register<EnemyGroupStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyGroupStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
 
-
-            builder.UseEntryPoints(Lifetime.Singleton, entryPoints =>
+            builder.UseEntryPoints(Lifetime.Scoped, entryPoints =>
             {
                 entryPoints.Add<EnemyGroupPresenter>();
 
@@ -41,14 +45,16 @@ namespace gaw241124.Inject
 
         public T GetInstance<T>()
         {
-            /*
-            if (_enemyStoneContainer == null)
-            {
-                _enemyStoneContainer = this.Container.Resolve<IEnemyGroupStonePutter>();
-            }
-            */
             return this.Container.Resolve<T>();
         }
+
+        public void DisposeEnemyGroup()
+        {
+            _disposed.OnNext(GroupId);
+            disposables.Dispose();
+            Dispose();
+        }
+
 
 
     }

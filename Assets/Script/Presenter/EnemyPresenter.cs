@@ -20,7 +20,6 @@ namespace gaw241124.Presenter
         [Inject] IEnemyBrain _brain;
         [Inject] IEnemyTurn _turn;
         [Inject] Func<IEnemyInitialStoneItemView, EnemyInitialStoneArgs> _factory;
-
         CompositeDisposable _disposable = new CompositeDisposable();
 
         public void Initialize()

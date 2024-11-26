@@ -25,7 +25,7 @@ namespace gaw241124.Model
             _enemyStonePutter = enemyStonePutter;
         }
 
-        public bool TryPutStone(Vector2Int position)
+        public bool TryPutStone(Vector2Int position, List<Vector2Int> eyesightDirection)
         {
             if (_gridProvider.IsPositionable(position, (int)Const.Positionable.EnemyStone))
             {
@@ -34,7 +34,7 @@ namespace gaw241124.Model
                 if (v.Any(
                     w => _gridProvider.IsPositionable((w + position), (int)Const.Positionable.EnemyStone)))
                 {
-                    _enemyStonePutter.PutStone(position);
+                    _enemyStonePutter.PutStone(position, eyesightDirection);
                     return true;
                 }
 

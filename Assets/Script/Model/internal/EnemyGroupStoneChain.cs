@@ -15,15 +15,20 @@ namespace gaw241124.Model
 {
     public class EnemyGroupStoneChain : IEnemyGroupStoneChain
     {
-        public EnemyGroupStoneChain(Vector2Int position, IGridProvider gridProvider, StoneProvider stoneProvider)
+        Vector2Int _initialStonePosition;
+        List<Vector2Int> _initialEyesightDirection;
+        IGridProvider _gridProvider;
+        StoneProvider _stoneProvider;
+
+
+        public EnemyGroupStoneChain(Vector2Int position,List<Vector2Int> eyesightDirection , IGridProvider gridProvider, StoneProvider stoneProvider)
         {
-            StonePositionList.Add(position);
+            _initialStonePosition = position;
+            _initialEyesightDirection = eyesightDirection;
             _gridProvider = gridProvider;
             _stoneProvider = stoneProvider;
         }
 
-        IGridProvider _gridProvider;
-        StoneProvider _stoneProvider;
         List<Vector2Int> _directionList;
         Tilemap _map;
         Subject<List<Vector2Int>> _aroundFilled = new Subject<List<Vector2Int>>();
@@ -42,14 +47,7 @@ namespace gaw241124.Model
             _directionList = GridUtil.GetDirectionList();
             _map = _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone);
 
-            //é¸àÕÇÃêŒÇéÊìæ
-            RegisterStonePosition(StonePositionList[0]);
-
-            //EmptyAroundListÇéÊìæ
-            foreach (var _stonePosition in StonePositionList)
-            {
-                RegisterEmptyAroundPosition(_stonePosition);
-            }
+            AddStone(_initialStonePosition, _initialEyesightDirection);
 
         }
 
@@ -80,13 +78,28 @@ namespace gaw241124.Model
                     {
                         EmptyAroundList.Add(v);
 
+                        /*
                         //Ç∆ÇËÇ†Ç¶Ç∏êŒÇÃâEë§ÇæÇØeyesightÇ™Ç†ÇÈÇ±Ç∆Ç…Ç∑ÇÈ
                         if(i == 1)
                         {
                             EyesightList.Add(v);
                             _eyesightStarted.OnNext(v);
                         }
+                        */
                     }
+                }
+            }
+        }
+
+        void RegisterEyeSight(List<Vector2Int> eyesightPosition)
+        {
+            foreach (var e in eyesightPosition)
+            {
+                if (_gridProvider.IsPositionable(e, (int)Const.Positionable.EnemyStone))
+                {
+
+                    EyesightList.Add(e);
+                    _eyesightStarted.OnNext(e);
                 }
             }
         }
@@ -112,12 +125,21 @@ namespace gaw241124.Model
             }
         }
 
-        public void AddStone(Vector2Int position)
+        public void AddStone(Vector2Int position, List<Vector2Int> eyesightDirection)
         {
             StonePositionList.Add(position);
             EmptyAroundList.Remove(position);
 
             RegisterEmptyAroundPosition(position);
+
+            List<Vector2Int> vec = new List<Vector2Int>();
+            Log.DebugLog("EyeSight");
+            foreach (var e in eyesightDirection)
+            {
+                Log.DebugLog("EyeSightAdd");
+                vec.Add(position + e);
+            }
+            RegisterEyeSight(vec);
         }
     }
 }
