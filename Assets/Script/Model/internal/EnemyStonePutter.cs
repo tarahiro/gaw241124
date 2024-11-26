@@ -13,9 +13,19 @@ namespace gaw241124.Model
 {
     public class EnemyStonePutter : IEnemyStonePutter
     {
-        [Inject] IStonePutterModel _stonePutterModel;
-        [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
-        [Inject] IEnemyStoneContainer _container;
+       IStonePutterModel _stonePutterModel;
+        IEnemyStoneContainer _container;
+        Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
+
+        [Inject]
+        public EnemyStonePutter(IStonePutterModel stonePutterModel,
+IEnemyStoneContainer container, Func<Const.Side, Vector2Int, StonePositionArgs> factory)
+        {
+            _stonePutterModel = stonePutterModel;
+            _container = container;
+            _factory = factory;
+        }
+
 
         public void PutStone(Vector2Int position)
         {

@@ -17,7 +17,7 @@ namespace gaw241124.Model
         [Inject] ITreasureModel _treasureModel;
         [Inject] IHideModel _hideModel;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IEnemyStoneContainer _enemyModel;
+        [Inject] IEnemyStoneHundler _enemyModel;
         [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
 
         Subject<Unit> _turnEnded { get; } = new Subject<Unit>();
@@ -27,6 +27,8 @@ namespace gaw241124.Model
 
         public void PutStone(Vector2Int position)
         {
+            Log.DebugLog("PlayerPutStone");
+
             _stonePutterModel.PutStone(_factory.Invoke(Const.Side.Player,position));
 
             _holdStoneModel.DeclineStone(1);

@@ -16,10 +16,22 @@ namespace gaw241124.Model
 {
     public class EnemyStoneContainer : IEnemyStoneContainer
     {
-        [Inject] IGridProvider _gridProvider;
-        [Inject] StoneProvider _stoneProvider;
-        [Inject] Func<Vector2Int, IEnemyStoneChain> _factory;
-        [Inject] EnemyStatus _enemyStatus;
+        IGridProvider _gridProvider;
+        StoneProvider _stoneProvider;
+        EnemyStatus _enemyStatus;
+        Func<Vector2Int, IEnemyStoneChain> _factory;
+
+
+        [Inject]
+        public EnemyStoneContainer(IGridProvider gridProvider, StoneProvider stoneProvider, EnemyStatus enemyStatus,
+            Func<Vector2Int, IEnemyStoneChain>factory)
+        {
+            _gridProvider = gridProvider;
+            _stoneProvider = stoneProvider;
+            _enemyStatus = enemyStatus;
+            _factory = factory;
+        }
+
 
         List<IEnemyStoneChain> _stoneChainList = new List<IEnemyStoneChain>();
         Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
@@ -61,6 +73,8 @@ namespace gaw241124.Model
 
         public void TryNoticePlayerStone(Vector2Int position)
         {
+            Log.DebugLog("TryNoticePlayerStone");
+
             // 処理中にリストが変更される可能性がある
             _stackedDeleteStoneChainList = new List<IEnemyStoneChain>();
 

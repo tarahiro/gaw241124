@@ -15,9 +15,17 @@ namespace gaw241124.Model
 {
     public class EnemyBrain : IEnemyBrain
     {
-        [Inject] IEnemyStoneContainer _container;
-        [Inject] IEnemyStonePutTryer _putTryer;
-        [Inject] EnemyStatus _status;
+        IEnemyStoneContainer _container;
+        IEnemyStonePutTryer _putTryer;
+        EnemyStatus _status;
+
+        [Inject]
+        public EnemyBrain(IEnemyStoneContainer container, IEnemyStonePutTryer putTryer, EnemyStatus status)
+        {
+            _container = container;
+            _putTryer = putTryer;
+            _status = status;
+        }
 
         Subject<Unit> _brainEnded = new Subject<Unit>();
         public IObservable<Unit> BrainEnded => _brainEnded;
@@ -27,6 +35,8 @@ namespace gaw241124.Model
             await UniTask.WaitForSeconds(.2f);
 
             bool isStonePutted = false;
+
+            Log.DebugLog("EnemyBrain開始");
 
             //アタリの石がいたら、逃げる
             if (_container.TryGetAtariStone(out var v))

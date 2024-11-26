@@ -13,33 +13,22 @@ using VContainer.Unity;
 
 namespace gaw241124.Presenter
 {
-    public class EnemyPresenter : IPostInitializable
+    public class EnemyPresenter : IInitializable
     {
-        [Inject] IEnemyStoneContainer _stoneContainer;
-        [Inject] IEnemyStoneView _stoneView;
-        [Inject] IEnemyBrain _brain;
-        [Inject] IEnemyTurn _turn;
-        [Inject] IEyesightView _eyesightView;
+        [Inject] IEnemyStoneHundler _enemyStoneHundler;
+        [Inject] IEnemyInitialStoneView _initialStoneView;
+        [Inject] Func<IEnemyInitialStoneItemView, EnemyInitialStoneArgs> _factory;
 
-        CompositeDisposable _compositeDisposable = new CompositeDisposable();
+        CompositeDisposable _disposable = new CompositeDisposable();
 
-        public void PostInitialize()
+        public void Initialize()
         {
-            _stoneContainer.Arounded.Subscribe(OnArounded).AddTo(_compositeDisposable);
-            _stoneContainer.EyesightStarted.Subscribe(_eyesightView.PutEyesight).AddTo(_compositeDisposable);
-            _turn.TurnEntered.Subscribe(_ => _brain.Enter().Forget()).AddTo(_compositeDisposable);
-            _brain.BrainEnded.Subscribe(_=>_turn.Exit()).AddTo(_compositeDisposable);
+            _initialStoneView.ItemFinded.Subscribe(x => _enemyStoneHundler.RegisterEnemyInitialStone(_factory.Invoke(x))).AddTo(_disposable);
 
-            _stoneContainer.InitializeModel(_compositeDisposable);
+            _initialStoneView.InitializeView();
+            _enemyStoneHundler.InitializeModel();
         }
 
-        void OnArounded(List<Vector2Int> positionList) 
-        {
-            foreach (var position in positionList)
-            {
-                _stoneView.RemoveStone(position);
-            }
 
-        }
     }
 }

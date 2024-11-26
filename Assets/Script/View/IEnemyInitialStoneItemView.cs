@@ -11,8 +11,9 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface IGridPositionGettable : ITransform
+    public interface IEnemyInitialStoneItemView : IGridPositionGettable
     {
-        Vector2Int GridPosition { get; }
+        string Id { get; }
+
     }
 }

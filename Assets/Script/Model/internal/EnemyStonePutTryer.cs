@@ -15,8 +15,16 @@ namespace gaw241124.Model
 {
     public class EnemyStonePutTryer : IEnemyStonePutTryer
     {
-        [Inject] IGridProvider _gridProvider;
-        [Inject] IEnemyStonePutter _enemyStonePutter;
+         IGridProvider _gridProvider;
+         IEnemyStonePutter _enemyStonePutter;
+
+        [Inject]
+        public EnemyStonePutTryer(IGridProvider gridProvider, IEnemyStonePutter enemyStonePutter)
+        {
+            _gridProvider = gridProvider;
+            _enemyStonePutter = enemyStonePutter;
+        }
+
         public bool TryPutStone(Vector2Int position)
         {
             if (_gridProvider.IsPositionable(position, (int)Const.Positionable.EnemyStone))

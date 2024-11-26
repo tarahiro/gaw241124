@@ -9,10 +9,13 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.View
+namespace gaw241124.Model
 {
-    public interface IGridPositionGettable : ITransform
+    public interface IEnemyStoneHundler
     {
-        Vector2Int GridPosition { get; }
+        void InitializeModel();
+        void TryNoticePlayerStone(Vector2Int position);
+
+        void RegisterEnemyInitialStone(EnemyInitialStoneArgs args);
     }
 }

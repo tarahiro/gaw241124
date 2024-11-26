@@ -38,13 +38,21 @@ namespace gaw241124.Inject
                     var _stoneProvider = container.Resolve<StoneProvider>();
                     return x => new EnemyStoneChain(x, _gridProvider, _stoneProvider);
                 }, Lifetime.Singleton);
-            builder.Register<EnemyStoneContainer>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyStoneView>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<EnemyStatus>(Lifetime.Singleton).AsSelf();
-            builder.RegisterComponentInHierarchy<EyesightView>().AsImplementedInterfaces(); 
+            builder.RegisterComponentInHierarchy<EyesightView>().AsImplementedInterfaces();
+            builder.Register<EnemyStoneHundler>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.RegisterFactory<int, IEnemyStoneContainer>(container =>
+            {
+                return i  =>
+                {
+                    var prefab = Resources.Load<EnemyGroupLifetimeScope>("Prefab/EnemyGroupLifetimeScope");
+                    EnemyGroupLifetimeScope instance = container.Instantiate(prefab);
+                    return instance.GetEnemyStoneContainer();
+                };
+            }, Lifetime.Scoped);
+            builder.RegisterFactory<IEnemyInitialStoneItemView, EnemyInitialStoneArgs>(x => new EnemyInitialStoneArgs(x.Id, x.GridPosition));
+            builder.RegisterComponentInHierarchy<EnemyInitialStoneView>().AsImplementedInterfaces();
+
 
             //Hide
             builder.RegisterComponentInHierarchy<HideView>().AsImplementedInterfaces();
