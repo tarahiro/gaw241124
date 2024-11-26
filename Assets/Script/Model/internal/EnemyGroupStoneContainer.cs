@@ -14,17 +14,17 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyStoneContainer : IEnemyStoneContainer
+    public class EnemyGroupStoneContainer : IEnemyGroupStoneContainer
     {
         IGridProvider _gridProvider;
         StoneProvider _stoneProvider;
-        EnemyStatus _enemyStatus;
-        Func<Vector2Int, IEnemyStoneChain> _factory;
+        EnemyGroupStatus _enemyStatus;
+        Func<Vector2Int, IEnemyGroupStoneChain> _factory;
 
 
         [Inject]
-        public EnemyStoneContainer(IGridProvider gridProvider, StoneProvider stoneProvider, EnemyStatus enemyStatus,
-            Func<Vector2Int, IEnemyStoneChain>factory)
+        public EnemyGroupStoneContainer(IGridProvider gridProvider, StoneProvider stoneProvider, EnemyGroupStatus enemyStatus,
+            Func<Vector2Int, IEnemyGroupStoneChain>factory)
         {
             _gridProvider = gridProvider;
             _stoneProvider = stoneProvider;
@@ -33,7 +33,7 @@ namespace gaw241124.Model
         }
 
 
-        List<IEnemyStoneChain> _stoneChainList = new List<IEnemyStoneChain>();
+        List<IEnemyGroupStoneChain> _stoneChainList = new List<IEnemyGroupStoneChain>();
         Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
         Subject<Vector2Int> _eyesightStarted = new Subject<Vector2Int>();
         CompositeDisposable _disposable;
@@ -43,20 +43,7 @@ namespace gaw241124.Model
 
         public void InitializeModel(CompositeDisposable disposable)
         {
-            var map = _gridProvider.GetTilemap((int)Const.TilemapLayer.Stone);
             _disposable = disposable;
-
-            for (int i = map.origin.x; i < map.origin.x + map.size.x; i++)
-            {
-                for (int j = map.origin.y; j < map.origin.y + map.size.y; j++)
-                {
-                    var v = new Vector2Int(i, j);
-                    if (map.GetTile((Vector3Int)v) == _stoneProvider.GetTilebase(Const.Side.Enemy))
-                    {
-                        RegisterStoneChain(v);
-                    }
-                }
-            }
         }
 
         void RegisterStoneChain(Vector2Int position)
@@ -69,14 +56,14 @@ namespace gaw241124.Model
             _stoneChainList.Add(chain);
         }
 
-        List<IEnemyStoneChain> _stackedDeleteStoneChainList;
+        List<IEnemyGroupStoneChain> _stackedDeleteStoneChainList;
 
         public void TryNoticePlayerStone(Vector2Int position)
         {
             Log.DebugLog("TryNoticePlayerStone");
 
             // 処理中にリストが変更される可能性がある
-            _stackedDeleteStoneChainList = new List<IEnemyStoneChain>();
+            _stackedDeleteStoneChainList = new List<IEnemyGroupStoneChain>();
 
             foreach (var stoneChain in _stoneChainList)
             {
@@ -112,7 +99,7 @@ namespace gaw241124.Model
             return false;
         }
 
-        public bool TryGetAtariStone(out IEnemyStoneChain enemyStoneChain)
+        public bool TryGetAtariStone(out IEnemyGroupStoneChain enemyStoneChain)
         {
             enemyStoneChain = null;
             foreach (var stone in _stoneChainList)
@@ -150,7 +137,7 @@ namespace gaw241124.Model
 
         public void NoticeEnemyStone(Vector2Int position)
         {
-            List<IEnemyStoneChain> adjacentChainList = new List<IEnemyStoneChain>();
+            List<IEnemyGroupStoneChain> adjacentChainList = new List<IEnemyGroupStoneChain>();
 
             foreach (var chain in _stoneChainList)
             {

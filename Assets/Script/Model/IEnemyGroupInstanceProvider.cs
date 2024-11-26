@@ -11,8 +11,10 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IEnemyStonePutter
+    public interface IEnemyGroupInstanceProvider
     {
-        void PutStone(Vector2Int position);
+        string GroupId { get; }
+
+        T GetInstance<T>();
     }
 }

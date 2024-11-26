@@ -11,15 +11,15 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyStonePutter : IEnemyStonePutter
+    public class EnemyGroupStonePutter : IEnemyGroupStonePutter
     {
        IStonePutterModel _stonePutterModel;
-        IEnemyStoneContainer _container;
+        IEnemyGroupStoneContainer _container;
         Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
 
         [Inject]
-        public EnemyStonePutter(IStonePutterModel stonePutterModel,
-IEnemyStoneContainer container, Func<Const.Side, Vector2Int, StonePositionArgs> factory)
+        public EnemyGroupStonePutter(IStonePutterModel stonePutterModel,
+IEnemyGroupStoneContainer container, Func<Const.Side, Vector2Int, StonePositionArgs> factory)
         {
             _stonePutterModel = stonePutterModel;
             _container = container;

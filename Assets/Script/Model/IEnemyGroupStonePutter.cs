@@ -11,11 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IEnemyStoneHundler
+    public interface IEnemyGroupStonePutter
     {
-        void InitializeModel();
-        void TryNoticePlayerStone(Vector2Int position);
-
-        void RegisterEnemyInitialStone(EnemyInitialStoneArgs args);
+        void PutStone(Vector2Int position);
     }
 }

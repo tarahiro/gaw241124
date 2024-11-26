@@ -13,9 +13,9 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyStoneChain : IEnemyStoneChain
+    public class EnemyGroupStoneChain : IEnemyGroupStoneChain
     {
-        public EnemyStoneChain(Vector2Int position, IGridProvider gridProvider, StoneProvider stoneProvider)
+        public EnemyGroupStoneChain(Vector2Int position, IGridProvider gridProvider, StoneProvider stoneProvider)
         {
             StonePositionList.Add(position);
             _gridProvider = gridProvider;

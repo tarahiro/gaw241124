@@ -32,26 +32,28 @@ namespace gaw241124.Inject
             builder.RegisterFactory<Const.Side, Vector2Int, StonePositionArgs>((s,v) => new StonePositionArgs(s,v));
 
             //Enemy
-            builder.RegisterFactory<Vector2Int, IEnemyStoneChain>(container =>
+            builder.RegisterFactory<Vector2Int, IEnemyGroupStoneChain>(container =>
                 {
                     var _gridProvider = container.Resolve<IGridProvider>();
                     var _stoneProvider = container.Resolve<StoneProvider>();
-                    return x => new EnemyStoneChain(x, _gridProvider, _stoneProvider);
+                    return x => new EnemyGroupStoneChain(x, _gridProvider, _stoneProvider);
                 }, Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<EyesightView>().AsImplementedInterfaces();
-            builder.Register<EnemyStoneHundler>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<EnemyWholeGroupHundler>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.RegisterFactory<int, IEnemyStoneContainer>(container =>
+            builder.RegisterFactory<string, IEnemyGroupInstanceProvider>(container =>
             {
-                return i  =>
+                return s =>
                 {
                     var prefab = Resources.Load<EnemyGroupLifetimeScope>("Prefab/EnemyGroupLifetimeScope");
                     EnemyGroupLifetimeScope instance = container.Instantiate(prefab);
-                    return instance.GetEnemyStoneContainer();
+                    instance.Construct(s);
+                    return instance;
                 };
             }, Lifetime.Scoped);
             builder.RegisterFactory<IEnemyInitialStoneItemView, EnemyInitialStoneArgs>(x => new EnemyInitialStoneArgs(x.Id, x.GridPosition));
             builder.RegisterComponentInHierarchy<EnemyInitialStoneView>().AsImplementedInterfaces();
+            builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
 
 
             //Hide

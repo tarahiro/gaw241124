@@ -13,22 +13,20 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyBrain : IEnemyBrain
+    public class EnemyGroupBrain : IEnemyGroupBrain
     {
-        IEnemyStoneContainer _container;
-        IEnemyStonePutTryer _putTryer;
-        EnemyStatus _status;
+        IEnemyGroupStoneContainer _container;
+        IEnemyGroupStonePutTryer _putTryer;
+        EnemyGroupStatus _status;
 
         [Inject]
-        public EnemyBrain(IEnemyStoneContainer container, IEnemyStonePutTryer putTryer, EnemyStatus status)
+        public EnemyGroupBrain(IEnemyGroupStoneContainer container, IEnemyGroupStonePutTryer putTryer, EnemyGroupStatus status)
         {
             _container = container;
             _putTryer = putTryer;
             _status = status;
         }
 
-        Subject<Unit> _brainEnded = new Subject<Unit>();
-        public IObservable<Unit> BrainEnded => _brainEnded;
 
         public async UniTask Enter()
         {
@@ -77,7 +75,6 @@ namespace gaw241124.Model
                 }
             }
 
-            _brainEnded.OnNext(Unit.Default);
 
         }
 

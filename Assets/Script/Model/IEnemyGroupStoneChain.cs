@@ -11,7 +11,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface IEnemyStoneChain
+    public interface IEnemyGroupStoneChain
     {
         void Initialize();
         List<Vector2Int> StonePositionList { get; }

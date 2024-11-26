@@ -17,7 +17,7 @@ namespace gaw241124.Model
         [Inject] ITreasureModel _treasureModel;
         [Inject] IHideModel _hideModel;
         [Inject] IPlayerHoldStoneModel _holdStoneModel;
-        [Inject] IEnemyStoneHundler _enemyModel;
+        [Inject] IEnemyWholeGroupHundler _enemyModel;
         [Inject] Func<Const.Side, Vector2Int, StonePositionArgs> _factory;
 
         Subject<Unit> _turnEnded { get; } = new Subject<Unit>();

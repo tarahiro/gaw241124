@@ -11,10 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyStatus
+    public interface IEnemyGroupBrain
     {
-        public bool IsPercievePlayer { get; set; } = false;
-
-        public List<Vector2Int> PercievedPlayerStone { get; set; } = new List<Vector2Int>();
+        UniTask Enter();
     }
 }

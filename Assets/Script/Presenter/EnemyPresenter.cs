@@ -13,10 +13,12 @@ using VContainer.Unity;
 
 namespace gaw241124.Presenter
 {
-    public class EnemyPresenter : IInitializable
+    public class EnemyPresenter : IInitializable,IStartable
     {
-        [Inject] IEnemyStoneHundler _enemyStoneHundler;
+        [Inject] IEnemyWholeGroupHundler _enemyStoneHundler;
         [Inject] IEnemyInitialStoneView _initialStoneView;
+        [Inject] IEnemyBrain _brain;
+        [Inject] IEnemyTurn _turn;
         [Inject] Func<IEnemyInitialStoneItemView, EnemyInitialStoneArgs> _factory;
 
         CompositeDisposable _disposable = new CompositeDisposable();
@@ -24,9 +26,15 @@ namespace gaw241124.Presenter
         public void Initialize()
         {
             _initialStoneView.ItemFinded.Subscribe(x => _enemyStoneHundler.RegisterEnemyInitialStone(_factory.Invoke(x))).AddTo(_disposable);
+            _turn.TurnEntered.Subscribe(_ => _brain.Enter().Forget()).AddTo(_disposable);
+            _brain.BrainEnded.Subscribe(_ => _turn.Exit()).AddTo(_disposable);
 
-            _initialStoneView.InitializeView();
             _enemyStoneHundler.InitializeModel();
+        }
+
+        public void Start()
+        {
+            _initialStoneView.InitializeView();
         }
 
 

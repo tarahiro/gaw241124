@@ -10,7 +10,7 @@ using VContainer.Unity;
 
 namespace gaw241124
 {
-    public interface IEnemyStonePutTryer
+    public interface IEnemyGroupStonePutTryer
     {
         bool TryPutStone(Vector2Int position);
 

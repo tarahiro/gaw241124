@@ -22,6 +22,7 @@ namespace gaw241124.Model
 
         public void PutStone(StonePositionArgs positionArgs)
         {
+            Log.DebugLog("Puttermodel : PutStone");
             _stonePutted.OnNext(positionArgs);
 
         }

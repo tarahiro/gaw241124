@@ -13,13 +13,13 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyStonePutTryer : IEnemyStonePutTryer
+    public class EnemyGroupStonePutTryer : IEnemyGroupStonePutTryer
     {
          IGridProvider _gridProvider;
-         IEnemyStonePutter _enemyStonePutter;
+         IEnemyGroupStonePutter _enemyStonePutter;
 
         [Inject]
-        public EnemyStonePutTryer(IGridProvider gridProvider, IEnemyStonePutter enemyStonePutter)
+        public EnemyGroupStonePutTryer(IGridProvider gridProvider, IEnemyGroupStonePutter enemyStonePutter)
         {
             _gridProvider = gridProvider;
             _enemyStonePutter = enemyStonePutter;

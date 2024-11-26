@@ -15,10 +15,8 @@ namespace gaw241124.Presenter
 {
     public class EnemyGroupPresenter : IPostInitializable
     {
-        [Inject] IEnemyStoneContainer _stoneContainer;
+        [Inject] IEnemyGroupStoneContainer _stoneContainer;
         [Inject] IEnemyStoneView _stoneView;
-        [Inject] IEnemyBrain _brain;
-        [Inject] IEnemyTurn _turn;
         [Inject] IEyesightView _eyesightView;
 
         CompositeDisposable _compositeDisposable = new CompositeDisposable();
@@ -27,8 +25,6 @@ namespace gaw241124.Presenter
         {
             _stoneContainer.Arounded.Subscribe(OnArounded).AddTo(_compositeDisposable);
             _stoneContainer.EyesightStarted.Subscribe(_eyesightView.PutEyesight).AddTo(_compositeDisposable);
-            _turn.TurnEntered.Subscribe(_ => _brain.Enter().Forget()).AddTo(_compositeDisposable);
-            _brain.BrainEnded.Subscribe(_=>_turn.Exit()).AddTo(_compositeDisposable);
 
             _stoneContainer.InitializeModel(_compositeDisposable);
         }
