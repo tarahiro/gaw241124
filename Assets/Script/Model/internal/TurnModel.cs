@@ -17,26 +17,32 @@ namespace gaw241124.Model
         [Inject] IEnemyTurn _enemyTurn;
 
         ITurn _currentTurn;
+        bool _isTurnEntered = false;
 
         public void Enter()
         {
+            _isTurnEntered = true;
             _currentTurn = _playerTurn;
             _currentTurn.Enter();
         }
 
-        public void GoNextSideTurn()
+        public void TryGoNextSideTurn()
         {
-            if(_currentTurn == _playerTurn)
+            if (_isTurnEntered)
             {
-                _currentTurn = _enemyTurn;
-            }
-            else
-            {
-                _currentTurn = _playerTurn;
-            }
 
-            _currentTurn.Enter();
 
+                if (_currentTurn == _playerTurn)
+                {
+                    _currentTurn = _enemyTurn;
+                }
+                else
+                {
+                    _currentTurn = _playerTurn;
+                }
+
+                _currentTurn.Enter();
+            }
         }
     }
 }

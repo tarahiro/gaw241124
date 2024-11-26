@@ -71,6 +71,9 @@ namespace gaw241124.Inject
             builder.Register<PlayerTurn>(Lifetime.Singleton).As<IPlayerTurn>();
             builder.Register<Turn>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            //Title
+            builder.Register<TitleModel>(Lifetime.Singleton).AsImplementedInterfaces();
+
             //Manager
             builder.Register<AdapterManagerToModel>(Lifetime.Singleton).AsImplementedInterfaces();
 

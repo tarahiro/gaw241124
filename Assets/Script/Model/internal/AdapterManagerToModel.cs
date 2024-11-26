@@ -13,11 +13,14 @@ namespace gaw241124
 {
     public class AdapterManagerToModel : IAdapterManagerToModel
     {
+        [Inject] ITitleModel _titleModel;
         [Inject] ITurnModel _turnModel;
 
         public void EnterModel()
         {
-            _turnModel.Enter();
+            _titleModel.Exited.Subscribe(_ => _turnModel.Enter());
+
+            _titleModel.Enter();
         }
     }
 }

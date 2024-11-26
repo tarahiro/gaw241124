@@ -22,6 +22,7 @@ namespace gaw241124.Model
         public void Enter()
         {
             _turn.Enter();
+            Log.DebugLog("プレイヤーターン開始");
             _TurnEntered.OnNext(Unit.Default);
         }
 

@@ -20,7 +20,7 @@ namespace gaw241124.Presenter
 
         public void Initialize()
         {
-            _turn.TurnExited.Subscribe(_ => _model.GoNextSideTurn()).AddTo(_compositeDisposable);
+            _turn.TurnExited.Subscribe(_ => _model.TryGoNextSideTurn()).AddTo(_compositeDisposable);
         }
     }
 }

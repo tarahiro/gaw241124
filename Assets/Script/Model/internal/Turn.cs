@@ -20,6 +20,7 @@ namespace gaw241124.Model
         public IObservable<Unit> TurnExited => _TurnExited;
         public void Enter()
         {
+            Log.DebugLog("ターン開始");
             _TurnEntered.OnNext(Unit.Default);
         }
 
