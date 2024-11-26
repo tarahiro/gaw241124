@@ -44,7 +44,7 @@ namespace gaw241124.Model
                     {
                         for (int i = -c_range; i <= c_range; i++)
                         {
-                            for (int j = -c_range; j <= c_range; j++)
+                            for (int j = -(c_range - Mathf.Abs(i)); j <= (c_range - Mathf.Abs(i)); j++)
                             {
                                 if (stoneTile.GetTile(new Vector3Int(x + i, y + j, 0)) == _stoneProvider.GetTilebase(Const.Side.Player))
                                 {
@@ -65,7 +65,7 @@ namespace gaw241124.Model
         {
             for(int i = -c_range; i <= c_range; i++)
             {
-                for(int j = -c_range; j <= c_range; j++)
+                for (int j = -(c_range - Mathf.Abs(i)); j <= (c_range - Mathf.Abs(i)); j++)
                 {
                     _groundShowed.OnNext(new Vector2Int(position.x + i, position.y + j));
                 }
