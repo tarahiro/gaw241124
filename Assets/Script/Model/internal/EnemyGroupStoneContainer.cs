@@ -38,6 +38,7 @@ namespace gaw241124.Model
         Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
         Subject<Vector2Int> _eyesightStarted = new Subject<Vector2Int>();
         Subject<Vector2Int> _PlayerPercieved = new Subject<Vector2Int>();
+        Subject<Vector2Int> _ataried = new Subject<Vector2Int>();
         CompositeDisposable _disposable;
 
         Subject<Unit> _defeated = new Subject<Unit>();
@@ -46,6 +47,7 @@ namespace gaw241124.Model
         public IObservable<List<Vector2Int>> Arounded => _arounded;
         public IObservable<Vector2Int> EyesightStarted => _eyesightStarted;
         public IObservable<Vector2Int> PlayerPercieved => _PlayerPercieved;
+        public IObservable<Vector2Int> Ataried => _ataried;
 
         public void InitializeModel(CompositeDisposable disposable)
         {
@@ -77,18 +79,36 @@ namespace gaw241124.Model
                 {
                     stoneChain.GetNoticeStoneOnAround(position);
 
+                    //Eyesight処理
 
                     //StoneChain側で感知した方がいいかも
                     if (stoneChain.EyesightList.Contains(position))
                     {
                         _enemyStatus.PercievedPlayerStone.Add(position);
                         _enemyStatus.IsPercievePlayer = true;
-                        _PlayerPercieved.OnNext(position);
+
+                        //もう一度周囲を見て、あった敵石に演出を出す
+                        foreach (var item in GridUtil.GetDirectionList())
+                        {
+                            if (stoneChain.StonePositionList.Contains(position + item))
+                            {
+                                _PlayerPercieved.OnNext(position + item);
+                                break;
+                            }
+                        }
                     }
+
                 }
+
+                //Atari処理
+                if (stoneChain.IsAtari())
+                {
+                    _ataried.OnNext(stoneChain.StonePositionList[0]);
+                }
+
             }
 
-            foreach(var stackedStoneChain in _stackedDeleteStoneChainList)
+            foreach (var stackedStoneChain in _stackedDeleteStoneChainList)
             {
                 _stoneChainList.Remove(stackedStoneChain);
                 if (_stoneChainList.Count == 0)
@@ -206,6 +226,20 @@ namespace gaw241124.Model
 
             return v / stoneCount;
 
+        }
+
+        public void RemovePlayerStone(Vector2Int position)
+        {
+            foreach (var chain in _stoneChainList)
+            {
+                foreach (var item in GridUtil.GetDirectionList())
+                {
+                    if(chain.StonePositionList.Contains(item + position))
+                    {
+                        chain.RemovePlayerStone(item + position);
+                    }
+                }
+            }
         }
     }
 }

@@ -19,5 +19,7 @@ namespace gaw241124.Model
 
         IObservable<int> TreasureAchieved { get; }
         IObservable<int> AddStoneTreasureAchieved { get; }
+
+        IObservable<Vector2Int> AddStoneTreasureAchievedVec { get; }
     }
 }

@@ -29,6 +29,7 @@ namespace gaw241124.Inject
             builder.Register<PlayerStonePutTryer>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerHoldStoneModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerStoneView>(Lifetime.Singleton).AsImplementedInterfaces();
 
             //Treasure
             builder.RegisterComponentInHierarchy<TreasureView>().AsImplementedInterfaces();
@@ -62,14 +63,16 @@ namespace gaw241124.Inject
             builder.RegisterFactory<IEnemyInitialStoneItemView, EnemyInitialStoneArgs>(x => new EnemyInitialStoneArgs(x.Id, x.GridPosition, x.EyesightDirection));
             builder.RegisterComponentInHierarchy<EnemyInitialStoneView>().AsImplementedInterfaces();
             builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<TileNotifyView>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterFactory<Vector3, TileNotifyItemView>(container =>
+            builder.Register<PercieveNotifyView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<AtariNotifyView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<TreasureNotifyView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterFactory<Vector3,string, ITileNotifyItemView>(container =>
             {
-                return s =>
+                return (v,s) =>
                 {
-                    var prefab = Resources.Load<TileNotifyItemView>("Prefab/TileNotifyItemView");
-                    TileNotifyItemView instance = container.Instantiate(prefab);
-                    instance.Construct(s);
+                    var prefab = Resources.Load<ITileNotifyItemView>(s);
+                    ITileNotifyItemView instance = container.Instantiate(prefab);
+                    instance.Construct(v);
                     return instance;
                 };
             }, Lifetime.Scoped);

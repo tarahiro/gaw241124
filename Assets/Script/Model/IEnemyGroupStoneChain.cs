@@ -24,5 +24,6 @@ namespace gaw241124.Model
 
         void GetNoticeStoneOnAround(Vector2Int position);
         void AddStone(Vector2Int position, List<Vector2Int> eyesightDirection);
+        void RemovePlayerStone(Vector2Int position);
     }
 }

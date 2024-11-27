@@ -16,11 +16,13 @@ namespace gaw241124.Model
         void InitializeModel(CompositeDisposable disposables);
         void TryNoticePlayerStone(Vector2Int position);
         void NoticeEnemyStone(Vector2Int position, List<Vector2Int> eyesightDirection);
+        void RemovePlayerStone(Vector2Int position);
         bool IsKillAnyStoneChainIfPutted(Vector2Int position);
         bool TryGetAtariStone(out IEnemyGroupStoneChain enemyStoneChain);
         IObservable<List<Vector2Int>> Arounded { get; }
         IObservable<Vector2Int> EyesightStarted { get; }
         IObservable<Vector2Int> PlayerPercieved { get; }
+        IObservable<Vector2Int> Ataried { get; }
 
         Vector2 Centroid();
     }

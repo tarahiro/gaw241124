@@ -16,9 +16,11 @@ namespace gaw241124.Model
         Dictionary<Vector2Int, TreasureData> _dictionary = new Dictionary<Vector2Int, TreasureData> ();
         Subject<int> _treasureAchieved = new Subject<int> ();
         Subject<int> _addStoneTreasureAchieved = new Subject<int>();
+        Subject<Vector2Int> _addStoneTreasureAchievedVec = new Subject<Vector2Int> ();
 
         public IObservable<int> TreasureAchieved => _treasureAchieved;
         public IObservable<int> AddStoneTreasureAchieved => _addStoneTreasureAchieved;
+        public IObservable<Vector2Int> AddStoneTreasureAchievedVec => _addStoneTreasureAchievedVec;
 
         public void TryAchieveTreasure(Vector2Int position)
         {
@@ -29,6 +31,7 @@ namespace gaw241124.Model
                 {
                     case "AddStone":
                         _addStoneTreasureAchieved.OnNext(data.Arg);
+                        _addStoneTreasureAchievedVec.OnNext(position);
                         break;
 
                     default:

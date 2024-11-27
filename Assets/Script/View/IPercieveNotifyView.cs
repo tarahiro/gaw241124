@@ -11,7 +11,6 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface IEnemyStoneView : IStoneRemovable
-    {
+    public interface IPercieveNotifyView : ITileNotifyView { 
     }
 }

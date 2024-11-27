@@ -13,6 +13,7 @@ namespace gaw241124.View
 {
     public interface ITileNotifyView
     {
+        void InitializeView();
         void ShowIcon(Vector2Int position);
     }
 }

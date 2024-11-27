@@ -11,7 +11,13 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface IEnemyStoneView : IStoneRemovable
+    public class AtariNotifyView : TileNotifyView, IAtariNotifyView
     {
+
+        public override void InitializeView()
+        {
+            base.InitializeView();
+            _prefabName = "Prefab/AtariNotifyItemView";
+        }
     }
 }

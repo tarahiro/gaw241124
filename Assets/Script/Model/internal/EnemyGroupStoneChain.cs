@@ -51,11 +51,11 @@ namespace gaw241124.Model
 
         }
 
-        void RegisterStonePosition(Vector2Int v)
+        void RegisterStonePosition(Vector2Int stonePosition)
         {
             for (int i = 0; i < _directionList.Count; i++)
             {
-                var p = v + _directionList[i];
+                var p = stonePosition + _directionList[i];
                 if (_map.GetTile((Vector3Int)p) == _stoneProvider.GetTilebase(Const.Side.Enemy))
                 {
                     if (!StonePositionList.Contains(p))
@@ -77,15 +77,6 @@ namespace gaw241124.Model
                     if (!EmptyAroundList.Contains(v))
                     {
                         EmptyAroundList.Add(v);
-
-                        /*
-                        //‚Æ‚è‚ ‚¦‚¸Î‚Ì‰E‘¤‚¾‚¯eyesight‚ª‚ ‚é‚±‚Æ‚É‚·‚é
-                        if(i == 1)
-                        {
-                            EyesightList.Add(v);
-                            _eyesightStarted.OnNext(v);
-                        }
-                        */
                     }
                 }
             }
@@ -140,6 +131,14 @@ namespace gaw241124.Model
                 vec.Add(position + e);
             }
             RegisterEyeSight(vec);
+        }
+
+        public void RemovePlayerStone(Vector2Int position)
+        {
+            if (!EmptyAroundList.Contains(position))
+            {
+                EmptyAroundList.Add(position);
+            }
         }
     }
 }

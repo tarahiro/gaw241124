@@ -20,6 +20,8 @@ namespace gaw241124.Presenter
         [Inject] IEnemyBrain _brain;
         [Inject] IEnemyTurn _turn;
         [Inject] Func<IEnemyInitialStoneItemView, EnemyInitialStoneArgs> _factory;
+        [Inject] IPercieveNotifyView _percieveNotifyView;
+        [Inject] IAtariNotifyView _atariNotifyView;
         CompositeDisposable _disposable = new CompositeDisposable();
 
         public void Initialize()
@@ -32,6 +34,8 @@ namespace gaw241124.Presenter
             _brain.BrainEnded.Subscribe(_ => _turn.Exit()).AddTo(_disposable);
 
             _enemyStoneHundler.InitializeModel();
+            _percieveNotifyView.InitializeView();
+            _atariNotifyView.InitializeView();
         }
 
         public void Start()

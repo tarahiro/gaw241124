@@ -11,7 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public interface IEnemyStoneView : IStoneRemovable
+    public interface IStoneRemovable
     {
+        void RemoveStone(Vector2Int position);
     }
 }

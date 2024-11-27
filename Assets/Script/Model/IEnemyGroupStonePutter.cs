@@ -14,5 +14,6 @@ namespace gaw241124.Model
     public interface IEnemyGroupStonePutter
     {
         void PutStone(Vector2Int position, List<Vector2Int> eyesightDirection);
+        IObservable<Vector2Int> StoneArounded { get; }
     }
 }
