@@ -24,6 +24,8 @@ namespace gaw241124.Presenter
 
         public void Initialize()
         {
+            Log.DebugLogComment("TreasurePresenteèâä˙âª");
+
             _view.ItemRegistered.Subscribe(OnRegisterItem).AddTo(_compositeDisposable);
             _model.TreasureAchieved.Subscribe(_view.DestroyTreasure).AddTo(_compositeDisposable);
             _model.AddStoneTreasureAchieved.Subscribe(_holdStoneModel.AddStone).AddTo(_compositeDisposable);

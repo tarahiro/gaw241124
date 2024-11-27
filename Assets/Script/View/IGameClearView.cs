@@ -9,16 +9,14 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.Model
+namespace gaw241124.View
 {
-    public interface ITurnModel
+    public interface IGameClearView
     {
-        void Enter();
+        IObservable<Unit> Clicked { get; }
 
-        void Exit(bool isClear);
+        void InitializeView();
 
-        void TryGoNextSideTurn();
-
-        IObservable<bool> Exited { get; }
+        void EnterView();
     }
 }

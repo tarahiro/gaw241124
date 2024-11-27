@@ -19,13 +19,6 @@ namespace Tarahiro.OtherGame
         Subject<IEnumerable<IOtherGameMaster>> _modelInitialized = new Subject<IEnumerable<IOtherGameMaster>>();
         public IObservable<IEnumerable<IOtherGameMaster>> ModelInitialized => _modelInitialized;
 
-        /*
-        public OtherGameModel(string gameCode)
-        {
-
-        }
-        */
-
         public void InitializeModel()
         {
             List<IOtherGameMaster> _availableMasterData = new List<IOtherGameMaster>();

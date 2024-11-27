@@ -21,6 +21,9 @@ namespace gaw241124.Presenter
 
         public void PostInitialize()
         {
+            Log.DebugLogComment("HidePresenterèâä˙âª");
+
+
             _model.GroundShowed.Subscribe(_view.ShowMap).AddTo(_compositeDisposable);
             _model.Hided.Subscribe(_view.Hide).AddTo(_compositeDisposable);
 

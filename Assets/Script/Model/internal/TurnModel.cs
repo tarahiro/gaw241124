@@ -19,6 +19,9 @@ namespace gaw241124.Model
         ITurn _currentTurn;
         bool _isTurnEntered = false;
 
+        Subject<bool> _exited = new Subject<bool>();
+        public IObservable<bool> Exited => _exited;
+
         public void Enter()
         {
             _isTurnEntered = true;
@@ -26,11 +29,19 @@ namespace gaw241124.Model
             _currentTurn.Enter();
         }
 
+        public void Exit(bool b)
+        {
+
+            Log.DebugLog("TurnModelèIóπ");
+
+            _isTurnEntered = false;
+            _exited.OnNext(b);
+        }
+
         public void TryGoNextSideTurn()
         {
             if (_isTurnEntered)
             {
-
 
                 if (_currentTurn == _playerTurn)
                 {

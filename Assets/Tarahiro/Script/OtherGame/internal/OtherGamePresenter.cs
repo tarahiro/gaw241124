@@ -12,7 +12,7 @@ using VContainer.Unity;
 
 namespace Tarahiro.OtherGame
 {
-    public class OtherGamePresenter : IOtherGamePresenter,IInitializable
+    public class OtherGamePresenter : IOtherGamePresenter,IStartable
     {
         [Inject] IOtherGameModel _model;
         [Inject] IOtherGameAbstructVIew _abstructView;
@@ -22,8 +22,8 @@ namespace Tarahiro.OtherGame
         [Inject] Func<IOtherGameMaster, IOtherGameDetailViewArgs> _detailViewArgsFactory;
 
         private readonly CompositeDisposable m_Disposables = new CompositeDisposable();
-
-        public void Initialize()
+        
+        public void Start()
         {
             _model.ModelInitialized.
                 Subscribe(x => OnInitializeModel(x)).

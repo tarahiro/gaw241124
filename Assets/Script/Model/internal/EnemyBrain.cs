@@ -17,7 +17,7 @@ namespace gaw241124.Model
         [Inject] IEnemyWholeGroupHundler _wholeGroupHundler;
 
         Subject<Unit> _brainEnded = new Subject<Unit>();
-        public IObservable<Unit> BrainEnded => _brainEnded;
+        public  IObservable<Unit> BrainEnded => _brainEnded;
 
         public async UniTask Enter()
         {

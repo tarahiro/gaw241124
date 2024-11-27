@@ -11,25 +11,29 @@ namespace Tarahiro.TGrid
         [SerializeField]
         Grid m_Grid;
 
-        List<Tilemap> _tileMapList;
+        List<Tilemap> _tileMapList = new List<Tilemap>();
 
 
         void ReadTilemap()
         {
+            Log.DebugLogComment("TileMap読み込み");
+
             var m_TilemapArray = m_Grid.GetComponentsInChildren<Tilemap>();
 
            　var query =  m_TilemapArray.OrderBy(t => t.GetComponent<TilemapRenderer>().sortingOrder);
-            //Order順に並べ替える
-            _tileMapList = new List<Tilemap>();
-            foreach(var tilemap in query)
+
+            Log.DebugLogComment("Order順に並べ替える");
+            foreach (var tilemap in query)
             {
+                Log.DebugLogComment(tilemap.name + "読み込み");
                 _tileMapList.Add(tilemap);
             }
         }
 
         public List<Tilemap> GetTilemaps()
         {
-            if (_tileMapList == null)
+            Log.DebugLogComment("TileMap返送");
+            if (_tileMapList.Count == 0)
             {
                 ReadTilemap();
             }

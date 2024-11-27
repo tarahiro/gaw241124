@@ -10,6 +10,8 @@ namespace Tarahiro.TGrid
 
         protected override void Configure(IContainerBuilder builder)
         {
+            Log.DebugLogComment("OtherGameLifetimeScope‚ÅRegisterŠJŽn");
+
             builder.RegisterInstance<SpriteInformationContainer>(_spriteInformationContainer).AsSelf();
             builder.RegisterComponentInHierarchy<GridMonoBehaviourReader>().AsImplementedInterfaces();
 

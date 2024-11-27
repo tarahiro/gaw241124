@@ -53,7 +53,16 @@ namespace Tarahiro
 				UnityEngine.Debug.LogAssertion(str);
 			}
 		}
-		[Conditional("ENABLE_DEBUG")]
+
+        // DEBUG時のみログを流す
+        [Conditional("ENABLE_DEBUG")]
+        public static void DebugLogComment(object message)
+        {
+            UnityEngine.Debug.Log(message);
+        }
+
+
+        [Conditional("ENABLE_DEBUG")]
 		public static void DebugAssert(string str)
 		{
 			UnityEngine.Debug.LogAssertion(str);
@@ -71,6 +80,6 @@ namespace Tarahiro
 		public static void TestAssert(bool properCondition)
 		{
 			UnityEngine.Debug.Assert(properCondition);
-		}
-	}
+        }
+    }
 }

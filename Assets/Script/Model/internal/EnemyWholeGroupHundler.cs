@@ -12,7 +12,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public class EnemyWholeGroupHundler : IEnemyWholeGroupHundler
+    public class EnemyWholeGroupHundler : IEnemyWholeGroupHundler, IGameClearable
     {
         [Inject]
         Func<string, IEnemyGroupInstanceProvider> _factory;
@@ -21,6 +21,9 @@ namespace gaw241124.Model
         List<IEnemyGroupInstanceProvider> _enemyGroupInstanceProviderList = new List<IEnemyGroupInstanceProvider>();
         List<IEnemyGroupInstanceProvider> _removableList;
 
+
+        Subject<Unit> _gameCleared = new Subject<Unit>();
+        public IObservable<Unit> GameCleared => _gameCleared;
 
         public void InitializeModel()
         {
@@ -40,13 +43,18 @@ namespace gaw241124.Model
             {
                 _enemyGroupInstanceProviderList.Remove(item);
             }
+
+            if (_removableList.Count > 0 &&　_enemyGroupInstanceProviderList.Count == 0)
+            {
+                Log.DebugLog("Groupのカウントが0");
+                _gameCleared.OnNext(Unit.Default);
+            }
         }
 
         public void RegisterEnemyInitialStone(EnemyInitialStoneArgs args)
         {
             if(!_enemyGroupInstanceProviderList.Any(x => x.GroupId == args.Id))
             {
-                Log.DebugLog(args.Id + "のグループ追加");
                 var v = _factory.Invoke(args.Id);
                 v.Disposed.Subscribe(RemoveEnemyGroup);
                 v.GetInstance<IEnemyGroupDefeatable>().Defeated.Subscribe(_ => v.DisposeEnemyGroup());

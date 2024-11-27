@@ -20,6 +20,9 @@ namespace gaw241124.Presenter
 
         public void Initialize()
         {
+            Log.DebugLogComment("TrunPresenter‰Šú‰»");
+
+
             _turn.TurnExited.Subscribe(_ => _model.TryGoNextSideTurn()).AddTo(_compositeDisposable);
         }
     }

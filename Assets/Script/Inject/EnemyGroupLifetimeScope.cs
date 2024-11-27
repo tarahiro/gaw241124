@@ -27,6 +27,8 @@ namespace gaw241124.Inject
 
         protected override void Configure(IContainerBuilder builder)
         {
+            Log.DebugLogComment("EnemyGroupLifetimeScope‚ÅRegisterŠJŽn");
+
             builder.Register<EnemyGroupStoneContainer>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<EnemyStoneView>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<EnemyGroupBrain>(Lifetime.Scoped).AsImplementedInterfaces();

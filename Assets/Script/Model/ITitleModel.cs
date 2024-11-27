@@ -11,12 +11,7 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface ITitleModel
+    public interface ITitleModel : IUiPageModel
     {
-        void Enter();
-        void Exit();
-
-        IObservable<Unit> Entered { get; }
-        IObservable<Unit> Exited { get; }
     }
 }

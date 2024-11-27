@@ -9,6 +9,7 @@ using UnityEngine;
 using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
+using Tarahiro;
 
 namespace gaw241124.Inject
 {
@@ -17,6 +18,8 @@ namespace gaw241124.Inject
         [SerializeField] StoneProvider _stoneProvider;
         protected override void Configure(IContainerBuilder builder)
         {
+            Log.DebugLogComment("LifetimeScope‚ÅRegisterŠJŽn");
+
             //Stone
             builder.RegisterInstance<StoneProvider>(_stoneProvider).AsSelf();
             builder.RegisterComponentInHierarchy<StonePutView>().AsImplementedInterfaces();
@@ -71,6 +74,13 @@ namespace gaw241124.Inject
             builder.Register<PlayerTurn>(Lifetime.Singleton).As<IPlayerTurn>();
             builder.Register<Turn>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            //GameClear
+            builder.Register<GameClearModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<GameClearView>().AsImplementedInterfaces();
+
+            //GameOver
+            builder.Register<GameOverModel>(Lifetime.Singleton).AsImplementedInterfaces();
+
             //Title
             builder.Register<TitleModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
@@ -86,6 +96,8 @@ namespace gaw241124.Inject
                 entryPoints.Add<EnemyPresenter>();
                 entryPoints.Add<PlayerPresenter>();
                 entryPoints.Add<TurnPresenter>();
+                entryPoints.Add<GameEndPresenter >();
+                entryPoints.Add<GameClearPresenter >();
 
                 entryPoints.Add<GameManager>();
 

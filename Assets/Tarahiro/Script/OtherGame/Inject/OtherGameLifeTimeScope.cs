@@ -17,12 +17,8 @@ namespace Tarahiro.OtherGame.Inject
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            Log.DebugLogComment("OtherGameLifetimeScope‚ÅRegisterŠJŽn");
             //OtherGame
-            builder.Register<OtherGameModel>(Lifetime.Singleton).WithParameter<string>("FakeProjectCode").AsImplementedInterfaces();
-            builder.RegisterComponentInHierarchy<OtherGameAbstructView>().AsImplementedInterfaces();
-            builder.RegisterComponentInHierarchy<OtherGameMenuView>().AsImplementedInterfaces();
-            builder.RegisterComponentInHierarchy<OtherGameDetailView>().AsImplementedInterfaces();
-            builder.Register<OtherGameMasterDataProvider>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterFactory<Sprite, IOtherGameIcon>(container =>
             {
 
@@ -34,6 +30,11 @@ namespace Tarahiro.OtherGame.Inject
                     return instance;
                 };
             }, Lifetime.Scoped);
+            builder.Register<OtherGameModel>(Lifetime.Singleton).WithParameter<string>("FakeProjectCode").AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<OtherGameAbstructView>().AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<OtherGameMenuView>().AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<OtherGameDetailView>().AsImplementedInterfaces();
+            builder.Register<OtherGameMasterDataProvider>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.RegisterFactory<IOtherGameMenuItemViewArgs, IOtherGameMenuItemView>(container =>
             {

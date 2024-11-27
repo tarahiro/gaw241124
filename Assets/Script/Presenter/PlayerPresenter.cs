@@ -25,6 +25,8 @@ namespace gaw241124
 
         public void Initialize()
         {
+            Log.DebugLogComment("PlayerPresenter‰Šú‰»");
+
             _turn.TurnEntered.Subscribe(_ => _inputView.Enter()).AddTo(_compositeDisposable);
             _turnEnder.TurnEnded.Subscribe(_ => _turn.Exit()).AddTo(_compositeDisposable);
 

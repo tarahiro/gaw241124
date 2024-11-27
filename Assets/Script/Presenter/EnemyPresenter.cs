@@ -24,6 +24,9 @@ namespace gaw241124.Presenter
 
         public void Initialize()
         {
+            Log.DebugLogComment("EnemyPresenter‰Šú‰»");
+
+
             _initialStoneView.ItemFinded.Subscribe(x => _enemyStoneHundler.RegisterEnemyInitialStone(_factory.Invoke(x))).AddTo(_disposable);
             _turn.TurnEntered.Subscribe(_ => _brain.Enter().Forget()).AddTo(_disposable);
             _brain.BrainEnded.Subscribe(_ => _turn.Exit()).AddTo(_disposable);

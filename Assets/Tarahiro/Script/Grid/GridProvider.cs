@@ -23,6 +23,8 @@ namespace Tarahiro.TGrid
 
         public void Initialize()
         {
+            Log.DebugLogComment("GridProvider初期化");
+
             m_TilemapList = _gridReader.GetTilemaps();
 
             UnPositionableTileList = new List<List<Sprite>>();
@@ -35,6 +37,8 @@ namespace Tarahiro.TGrid
 
         public Tilemap GetTilemap(int tileMapId)
         {
+            Log.DebugLogComment(tileMapId.ToString() + "のTilemap取得");
+
             return m_TilemapList[tileMapId];
         }
 

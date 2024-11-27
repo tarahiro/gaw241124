@@ -11,14 +11,12 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface ITurnModel
+    public interface IUiPageModel
     {
         void Enter();
+        void Exit();
 
-        void Exit(bool isClear);
-
-        void TryGoNextSideTurn();
-
-        IObservable<bool> Exited { get; }
+        IObservable<Unit> Entered { get; }
+        IObservable<Unit> Exited { get; }
     }
 }

@@ -11,14 +11,8 @@ using VContainer.Unity;
 
 namespace gaw241124.Model
 {
-    public interface ITurnModel
+    public interface IGameClearModel : IUiPageModel
     {
-        void Enter();
 
-        void Exit(bool isClear);
-
-        void TryGoNextSideTurn();
-
-        IObservable<bool> Exited { get; }
     }
 }
