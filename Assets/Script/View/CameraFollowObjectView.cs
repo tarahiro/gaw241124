@@ -13,36 +13,50 @@ using VContainer.Unity;
 
 namespace gaw241124.View
 {
-    public class CameraFollowObjectView : MonoBehaviour
+    public class CameraFollowObjectView : MonoBehaviour, ICameraFollowObjectView
     {
         [Inject] IGridProvider _gridProvider;
 
+        bool _isEnter = false;
+
+        public void Enter()
+        {
+            _isEnter = true;
+        }
+        public void Exit()
+        {
+            _isEnter = false;
+        }
+
         private void Update()
         {
+            if (_isEnter)
+            {
 
-            Vector2 vec = TTouch.GetInstance().ScreenPointOnThisFrame;
+                Vector2 vec = TTouch.GetInstance().ScreenPointOnThisFrame;
 
-            vec.x = Mathf.Max(vec.x, 0);
-            vec.x = Mathf.Min(vec.x, Tarahiro.Const.Resolution.x);
+                vec.x = Mathf.Max(vec.x, 0);
+                vec.x = Mathf.Min(vec.x, Tarahiro.Const.Resolution.x);
 
-            vec.y = Mathf.Max(vec.y, 0);
-            vec.y = Mathf.Min(vec.y, Tarahiro.Const.Resolution.y);
+                vec.y = Mathf.Max(vec.y, 0);
+                vec.y = Mathf.Min(vec.y, Tarahiro.Const.Resolution.y);
 
-            var tilemap = _gridProvider.GetTilemap((int)Const.TilemapLayer.Ground);
+                var tilemap = _gridProvider.GetTilemap((int)Const.TilemapLayer.Ground);
 
-            Vector3 tileposMin = tilemap.GetCellCenterWorld(tilemap.origin);
-            Vector3 tileposMax = tilemap.GetCellCenterWorld(tilemap.origin + tilemap.size);
+                Vector3 tileposMin = tilemap.GetCellCenterWorld(tilemap.origin);
+                Vector3 tileposMax = tilemap.GetCellCenterWorld(tilemap.origin + tilemap.size);
 
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(vec);
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(vec);
 
 
-            worldPosition.x = Mathf.Max(worldPosition.x, tileposMin.x);
-            worldPosition.x = Mathf.Min(worldPosition.x, tileposMax.x);
+                worldPosition.x = Mathf.Max(worldPosition.x, tileposMin.x);
+                worldPosition.x = Mathf.Min(worldPosition.x, tileposMax.x);
 
-            worldPosition.y = Mathf.Max(worldPosition.y, tileposMin.y);
-            worldPosition.y = Mathf.Min(worldPosition.y, tileposMax.y);
+                worldPosition.y = Mathf.Max(worldPosition.y, tileposMin.y);
+                worldPosition.y = Mathf.Min(worldPosition.y, tileposMax.y);
 
-            transform.position = worldPosition;
+                transform.position = worldPosition;
+            }
         }
     }
 }

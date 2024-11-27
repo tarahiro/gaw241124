@@ -20,6 +20,7 @@ namespace gaw241124.Model
         bool TryGetAtariStone(out IEnemyGroupStoneChain enemyStoneChain);
         IObservable<List<Vector2Int>> Arounded { get; }
         IObservable<Vector2Int> EyesightStarted { get; }
+        IObservable<Vector2Int> PlayerPercieved { get; }
 
         Vector2 Centroid();
     }

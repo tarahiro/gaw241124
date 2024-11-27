@@ -62,6 +62,17 @@ namespace gaw241124.Inject
             builder.RegisterFactory<IEnemyInitialStoneItemView, EnemyInitialStoneArgs>(x => new EnemyInitialStoneArgs(x.Id, x.GridPosition, x.EyesightDirection));
             builder.RegisterComponentInHierarchy<EnemyInitialStoneView>().AsImplementedInterfaces();
             builder.Register<EnemyBrain>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<TileNotifyView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterFactory<Vector3, TileNotifyItemView>(container =>
+            {
+                return s =>
+                {
+                    var prefab = Resources.Load<TileNotifyItemView>("Prefab/TileNotifyItemView");
+                    TileNotifyItemView instance = container.Instantiate(prefab);
+                    instance.Construct(s);
+                    return instance;
+                };
+            }, Lifetime.Scoped);
 
 
             //Hide
@@ -73,6 +84,7 @@ namespace gaw241124.Inject
             builder.Register<EnemyTurn>(Lifetime.Singleton).As<IEnemyTurn>();
             builder.Register<PlayerTurn>(Lifetime.Singleton).As<IPlayerTurn>();
             builder.Register<Turn>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<CameraFollowObjectView>().AsImplementedInterfaces();
 
             //GameClear
             builder.Register<GameClearModel>(Lifetime.Singleton).AsImplementedInterfaces();

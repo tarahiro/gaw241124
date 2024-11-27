@@ -25,7 +25,6 @@ namespace Tarahiro.TGrid
             Log.DebugLogComment("Order順に並べ替える");
             foreach (var tilemap in query)
             {
-                Log.DebugLogComment(tilemap.name + "読み込み");
                 _tileMapList.Add(tilemap);
             }
         }

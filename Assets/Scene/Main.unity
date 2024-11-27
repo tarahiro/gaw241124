@@ -298,6 +298,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 333932316}
     m_Modifications:
+    - target: {fileID: 6512577083980696259, guid: 6184f7a559a13464b9446eb32126fc7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8857281727152648148, guid: 6184f7a559a13464b9446eb32126fc7c, type: 3}
       propertyPath: m_Name
       value: OtherGameMenuView

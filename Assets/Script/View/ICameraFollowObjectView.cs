@@ -9,17 +9,11 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace gaw241124.Model
+namespace gaw241124.View
 {
-    public interface ITurnModel
+    public interface ICameraFollowObjectView
     {
         void Enter();
-
-        void Exit(bool isClear);
-
-        void TryGoNextSideTurn();
-
-        IObservable<Unit> Entered { get; }
-        IObservable<bool> Exited { get; }
+        void Exit();
     }
 }

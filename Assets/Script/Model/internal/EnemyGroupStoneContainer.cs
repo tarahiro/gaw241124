@@ -19,6 +19,7 @@ namespace gaw241124.Model
         IGridProvider _gridProvider;
         StoneProvider _stoneProvider;
         EnemyGroupStatus _enemyStatus;
+        
         Func<Vector2Int, List<Vector2Int>, IEnemyGroupStoneChain> _factory;
 
 
@@ -36,6 +37,7 @@ namespace gaw241124.Model
         List<IEnemyGroupStoneChain> _stoneChainList = new List<IEnemyGroupStoneChain>();
         Subject<List<Vector2Int>> _arounded = new Subject<List<Vector2Int>>();
         Subject<Vector2Int> _eyesightStarted = new Subject<Vector2Int>();
+        Subject<Vector2Int> _PlayerPercieved = new Subject<Vector2Int>();
         CompositeDisposable _disposable;
 
         Subject<Unit> _defeated = new Subject<Unit>();
@@ -43,6 +45,7 @@ namespace gaw241124.Model
         public IObservable<Unit> Defeated => _defeated;
         public IObservable<List<Vector2Int>> Arounded => _arounded;
         public IObservable<Vector2Int> EyesightStarted => _eyesightStarted;
+        public IObservable<Vector2Int> PlayerPercieved => _PlayerPercieved;
 
         public void InitializeModel(CompositeDisposable disposable)
         {
@@ -80,6 +83,7 @@ namespace gaw241124.Model
                     {
                         _enemyStatus.PercievedPlayerStone.Add(position);
                         _enemyStatus.IsPercievePlayer = true;
+                        _PlayerPercieved.OnNext(position);
                     }
                 }
             }

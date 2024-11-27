@@ -37,7 +37,6 @@ namespace Tarahiro.TGrid
 
         public Tilemap GetTilemap(int tileMapId)
         {
-            Log.DebugLogComment(tileMapId.ToString() + "のTilemap取得");
 
             return m_TilemapList[tileMapId];
         }
