@@ -21,6 +21,8 @@ namespace gaw241124.Model
 
         public async UniTask Enter()
         {
+            //StoneGroupÇ≤Ç∆Ç…çsìÆ
+
             List<IEnemyGroupBrain> _brainList = _wholeGroupHundler.GetInstanceOfAllGroup<IEnemyGroupBrain>();
 
             foreach (var brain in _brainList)

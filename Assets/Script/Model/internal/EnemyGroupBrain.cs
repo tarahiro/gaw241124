@@ -19,7 +19,9 @@ namespace gaw241124.Model
         IEnemyGroupStonePutTryer _putTryer;
         EnemyGroupStatus _status;
 
-        [Inject]
+        [Inject] IGridProvider _gridProvider;
+
+        [Inject] StoneProvider _stoneProvider;
         public EnemyGroupBrain(IEnemyGroupStoneContainer container, IEnemyGroupStonePutTryer putTryer, EnemyGroupStatus status)
         {
             _container = container;
@@ -52,6 +54,7 @@ namespace gaw241124.Model
 
                     List<DistanceSortPosition> distanceSortPositionList = new List<DistanceSortPosition>();
 
+                    //プレイヤーの周囲を探索し、距離を計算
                     for (int i = 0; i < _status.PercievedPlayerStone.Count; i++)
                     {
                         for (int j = 0; j < list.Count; j++)
@@ -67,8 +70,27 @@ namespace gaw241124.Model
 
                     foreach(var item in query)
                     {
-                        isStonePutted = _putTryer.TryPutStone(item.Position, new List<Vector2Int>() );
-                        if (isStonePutted) break;
+                        //置いたらアタリ or とられる場所には置かない
+
+                        int safeCount = 0;
+                        foreach(var direction in GridUtil.GetDirectionList())
+                        {
+                            var vec = direction + item.Position;
+
+                            bool groundable = _gridProvider.IsPositionable(vec, (int)Const.Positionable.Groundable);
+                            if (groundable)
+                            {
+                                if(_gridProvider.GetTilemap((int)Const.TilemapLayer.Stone).GetTile((Vector3Int)vec) != _stoneProvider.GetTilebase(Const.Side.Player)){
+                                    safeCount++;
+                                }
+                            }
+
+                        }
+                        if (safeCount > 1)
+                        {
+                            isStonePutted = _putTryer.TryPutStone(item.Position, new List<Vector2Int>());
+                            if (isStonePutted) break;
+                        }
                     }
 
 

@@ -10,8 +10,10 @@ using VContainer.Unity;
 
 namespace gaw241124
 {
-    public class Const
+    public static class Const
     {
+        public const int c_alertStoneNumber = 2;
+
         public enum TilemapLayer
         {
             Ground,

@@ -17,5 +17,6 @@ namespace gaw241124.Model
         void AddStone(int addedStoneNumber);
         void DeclineStone(int declinedStoneNumber);
         IObservable<int> StoneUpdated { get; }
+        IObservable<int> StoneAlerted { get; }
     }
 }

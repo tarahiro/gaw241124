@@ -15,9 +15,12 @@ namespace gaw241124.Model
     {
         int _stoneNumber = 0;
         Subject<int> _stoneUpdated = new Subject<int>();
+        Subject<int> _stoneAlerted = new Subject<int>();
         Subject<Unit> _gameOvered = new Subject<Unit>();
         public int HoldStoneNumber => _stoneNumber;
+        
         public IObservable<int> StoneUpdated => _stoneUpdated;
+        public IObservable<int> StoneAlerted => _stoneAlerted;
 
         public IObservable<Unit> GameOvered => _gameOvered;
         public void AddStone(int addedStoneNumber)
@@ -29,10 +32,16 @@ namespace gaw241124.Model
         {
             _stoneNumber -= addedStoneNumber;
             _stoneUpdated.OnNext(_stoneNumber);
-
-            if(_stoneNumber <= 0)
+            if (_stoneNumber <= Const.c_alertStoneNumber)
             {
-                _gameOvered.OnNext(Unit.Default);
+                if (_stoneNumber > 0)
+                {
+                    _stoneAlerted.OnNext(_stoneNumber);
+                }
+                else
+                {
+                    _gameOvered.OnNext(Unit.Default);
+                }
             }
         }
     }

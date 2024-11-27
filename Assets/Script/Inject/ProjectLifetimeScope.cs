@@ -30,6 +30,7 @@ namespace gaw241124.Inject
             builder.Register<PlayerHoldStoneModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerStonePutter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerStoneView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterComponentInHierarchy<StoneAlertVIew>().AsImplementedInterfaces();
 
             //Treasure
             builder.RegisterComponentInHierarchy<TreasureView>().AsImplementedInterfaces();

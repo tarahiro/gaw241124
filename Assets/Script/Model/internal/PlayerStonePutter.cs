@@ -31,8 +31,8 @@ namespace gaw241124.Model
 
             _stonePutterModel.PutStone(_factory.Invoke(Const.Side.Player,position));
 
-            _holdStoneModel.DeclineStone(1);
             _treasureModel.TryAchieveTreasure(position);
+            _holdStoneModel.DeclineStone(1);
             _hideModel.ClearHide(position);
             _enemyModel.TryNoticePlayerStone(position);
             _turnEnded.OnNext(Unit.Default);

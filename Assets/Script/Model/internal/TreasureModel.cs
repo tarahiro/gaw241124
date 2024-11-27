@@ -39,6 +39,7 @@ namespace gaw241124.Model
                         break;
                 }
 
+                _dictionary.Remove (position);
                 _treasureAchieved.OnNext(data.InstanceIndex);
             }
         }

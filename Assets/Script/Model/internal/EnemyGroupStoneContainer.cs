@@ -19,6 +19,8 @@ namespace gaw241124.Model
         IGridProvider _gridProvider;
         StoneProvider _stoneProvider;
         EnemyGroupStatus _enemyStatus;
+
+        [Inject] ITreasureModel _treasureModel;
         
         Func<Vector2Int, List<Vector2Int>, IEnemyGroupStoneChain> _factory;
 
@@ -154,6 +156,10 @@ namespace gaw241124.Model
                 {
                     if (chain.StonePositionList.Contains(p))
                     {
+                        for(int i = 0; i < chain.StonePositionList.Count; i++)
+                        {
+                            _treasureModel.TryAchieveTreasure(chain.StonePositionList[i]);
+                        }
                         _stackedDeleteStoneChainList.Add(chain);
                         return;
                     }
